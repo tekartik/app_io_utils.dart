@@ -1,0 +1,39 @@
+name: tekartik_app_io_prefs
+description: Prefs helper
+version: 0.4.0
+publish_to: none
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies:
+  tekartik_app_io_sqflite:
+    git:
+      url: git://github.com/tekartik/app_io_utils.dart
+      path: app_sqflite
+      ref: null_safety
+    version: '>=0.1.0'
+  tekartik_prefs_sembast:
+    git:
+      url: git://github.com/tekartik/prefs.dart
+      path: prefs_sembast
+      ref: null_safety
+    version: '>=0.1.0'
+  path:
+
+dev_dependencies:
+  process_run:
+  dev_test:
+  test:
+
+dependency_overrides:
+  tekartik_app_io_sqflite:
+    path: ../app_sqflite
+_tmp_dependency_overrides:
+  # temp dev
+  tekartik_prefs_sembast:
+    path: ../../../prefs.dart/prefs_sembast
+  tekartik_prefs:
+    path: ../../../prefs.dart/prefs
+  tekartik_common_utils:
+    path: ../../../common_utils.dart
