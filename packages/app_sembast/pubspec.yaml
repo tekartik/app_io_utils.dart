@@ -9,7 +9,6 @@ environment:
 dependencies:
   sembast: '>=3.0.0+2'
   sembast_sqflite: '>=2.0.0'
-  path_provider:
   path:
   tekartik_app_io_sqflite:
     git:
