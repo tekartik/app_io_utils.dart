@@ -1,5 +1,5 @@
-import 'package:test/test.dart';
 import 'package:tekartik_app_io_prefs/app_prefs.dart';
+import 'package:test/test.dart';
 
 void main() async {
   group('getPrefsFactory', () {

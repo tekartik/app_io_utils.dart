@@ -37,8 +37,9 @@ Future<DatabaseFactory> initDatabaseFactory(String packageName) async {
 
 /// Use sqflite on any platform
 DatabaseFactory getDatabaseFactory({String? packageName, String? rootPath}) {
-  if (Platform.isLinux || Platform.isWindows) {
+  if (Platform.isLinux || Platform.isWindows || Platform.isMacOS) {
     var databaseFactory = databaseFactoryFfi;
+    sqfliteFfiInit();
     // Should not return a future...or ignore
     databaseFactory.compatSetDatabasesPath(
         rootPath ?? buildDatabasesPath(packageName ?? '.'));

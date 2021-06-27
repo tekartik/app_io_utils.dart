@@ -2,8 +2,8 @@ import 'package:sqflite_common/sqlite_api.dart';
 
 import 'src/sqflite.dart' as src;
 
-export 'package:sqflite_common/sqlite_api.dart';
 export 'package:sqflite_common/sqflite_dev.dart';
+export 'package:sqflite_common/sqlite_api.dart';
 
 /// Default database factory, uses ffi on Windows and Linux
 DatabaseFactory get databaseFactory => src.databaseFactory;
