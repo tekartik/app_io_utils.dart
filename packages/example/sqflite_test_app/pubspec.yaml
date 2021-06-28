@@ -1,0 +1,53 @@
+name: tekartik_app_io_sqflite_test_app
+description: Sqflite test app lib
+version: 0.0.1
+publish_to: none
+
+environment:
+  sdk: ">=2.12.0-0 <3.0.0"
+
+dependencies:
+  tekartik_test_menu_io:
+    git:
+      url: git://github.com/tekartik/test_menu.dart
+      ref: null_safety
+      path: test_menu_io
+    version: '>=0.2.3'
+  tekartik_common_utils:
+    git:
+      url: git://github.com/tekartik/common_utils.dart
+      ref: null_safety
+    version: '>=0.2.3'
+  tekartik_app_io_sqflite:
+    git:
+      url: git://github.com/tekartik/app_io_utils.dart
+      ref: null_safety
+      path: app_sqflite
+    version: '>=0.1.0'
+  tekartik_app_io_platform:
+    git:
+      url: git://github.com/tekartik/app_io_utils.dart
+      ref: null_safety
+      path: app_platform
+    version: '>=0.1.0'
+dev_dependencies:
+  dev_test:
+
+dependency_overrides:
+  tekartik_app_io_sqflite:
+    path: ../../app_sqflite
+  tekartik_app_io_platform:
+    path: ../../app_platform
+
+_tmp_dependency_overrides:
+  # temp offline
+  tekartik_test_menu_io:
+    path: ../../../../test_menu.dart/test_menu_io
+  tekartik_test_menu:
+    path: ../../../../test_menu.dart/test_menu
+  tekartik_common_utils:
+    path: ../../../../common_utils.dart
+  tekartik_platform_io:
+    path: ../../../../platform.dart/platform_io
+  tekartik_platform:
+    path: ../../../../platform.dart/platform

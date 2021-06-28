@@ -1,0 +1,15 @@
+name: app_io_repo_support
+version: 0.1.0
+publish_to: none
+deploy_to: none
+
+environment:
+  sdk: '>=2.12.0-0 <4.0.0'
+
+dependencies:
+
+dev_dependencies:
+  path:
+  dev_test:
+
+dependency_overrides:
