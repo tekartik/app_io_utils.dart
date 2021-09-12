@@ -19,7 +19,7 @@ void main() {
         }
 
         var db = await open();
-        print('${db.path}');
+        print(db.path);
         await store.record('k').put(db, 'v');
         await db.close();
         db = await open();
