@@ -1,4 +1,3 @@
-import 'package:sqflite_common/sqflite_dev.dart';
 import 'package:tekartik_app_io_platform/app_platform.dart';
 import 'package:tekartik_app_io_sqflite/sqflite.dart';
 import 'package:tekartik_test_menu_io/test_menu_io.dart';

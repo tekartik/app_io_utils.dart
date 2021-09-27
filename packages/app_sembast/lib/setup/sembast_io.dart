@@ -1,4 +1,3 @@
-import 'package:sembast/sembast.dart';
 import 'package:tekartik_app_io_sembast/sembast.dart';
 
 export 'package:sembast/sembast.dart';
