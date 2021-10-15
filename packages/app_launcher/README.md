@@ -9,9 +9,9 @@ dependencies:
   tekartik_app_io_launcher:
     git:
       url: git://github.com/tekartik/app_io_utils.dart
-      ref: dart2
+      ref: null_safety
       path: packages/app_launcher
-    version: '>=0.1.0'
+    version: '>=0.1.1'
 ```
 
 ### Usage

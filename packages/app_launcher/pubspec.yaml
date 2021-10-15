@@ -1,11 +1,10 @@
 name: tekartik_app_io_launcher
 description: App io launcher (notepad, chrome, file explorer)
-version: 0.1.0
+version: 0.1.1
 publish_to: none
 
 environment:
   sdk: '>=2.14.3 <3.0.0'
-
 
 dependencies:
   path: ^1.8.0
