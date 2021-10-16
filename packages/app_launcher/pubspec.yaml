@@ -1,0 +1,20 @@
+name: tekartik_app_io_launcher
+description: App io launcher (notepad, chrome, file explorer)
+version: 0.1.1
+publish_to: none
+
+environment:
+  sdk: '>=2.14.3 <3.0.0'
+
+dependencies:
+  path: ^1.8.0
+  process_run:
+
+dev_dependencies:
+  test: ^1.16.0
+  tekartik_lints:
+    git:
+      url: git://github.com/tekartik/common.dart
+      ref: null_safety
+      path: packages/lints
+    version: '>=0.1.0'
