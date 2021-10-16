@@ -16,6 +16,12 @@ dependencies:
 
 ### Usage
 
+Launch default browser:
+
+```dart
+await launchBrowser(Uri.parse('https://www.google.com'));
+```
+
 Launch Chrome:
 
 ```dart

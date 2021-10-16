@@ -21,6 +21,9 @@ Future<bool> launchFileExplorer(String path, {bool verbose = false}) async {
       await _run('open $path');
       return true;
     }
+  } else if (Platform.isWindows) {
+    await _run('start $path');
+    return true;
   }
   return false;
 }
