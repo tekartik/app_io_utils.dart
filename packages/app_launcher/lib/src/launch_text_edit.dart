@@ -3,7 +3,14 @@ import 'dart:io';
 import 'package:process_run/shell.dart';
 
 /// Returns true if the editor was launched or is terminated...no garantuee
-Future<bool> launchTextEdit(String path, {bool verbose = false}) async {
+Future<bool> launchTextEdit(String path,
+    {bool verbose = false, bool doNotCreate = false}) async {
+  if (!doNotCreate) {
+    var file = File(path);
+    if (!file.existsSync()) {
+      file.createSync(recursive: true);
+    }
+  }
   Future _run(String command) async {
     await run(command, commandVerbose: verbose);
   }

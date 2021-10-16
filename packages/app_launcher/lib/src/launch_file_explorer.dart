@@ -16,6 +16,11 @@ Future<bool> launchFileExplorer(String path, {bool verbose = false}) async {
       await _run('nautilus $path');
       return true;
     }
+  } else if (Platform.isMacOS) {
+    if (await which('open') != null) {
+      await _run('open $path');
+      return true;
+    }
   }
   return false;
 }

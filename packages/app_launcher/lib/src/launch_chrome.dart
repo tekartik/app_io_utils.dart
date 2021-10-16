@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:process_run/shell.dart';
 
 /// Launch chrome
@@ -12,6 +14,12 @@ Future<bool> launchChrome(Uri uri, {bool verbose = false}) async {
   if (await which('google-chrome') != null) {
     await _run('google-chrome $url');
     return true;
+  }
+  if (Platform.isMacOS) {
+    if (await which('open') != null) {
+      await _run('open -a "Google Chrome" $url');
+      return true;
+    }
   }
   return false;
 }
