@@ -12,8 +12,8 @@ dependencies:
   path:
   tekartik_app_io_sqflite:
     git:
-      url: git://github.com/tekartik/app_io_utils.dart
-      ref: null_safety
+      url: https://github.com/tekartik/app_io_utils.dart
+      ref: dart2_3
       path: app_sqflite
     version: '>=0.5.0'
 
@@ -23,8 +23,8 @@ dev_dependencies:
   test:
   tekartik_lints:
     git:
-      url: git://github.com/tekartik/common.dart
-      ref: null_safety
+      url: https://github.com/tekartik/common.dart
+      ref: dart2_3
       path: packages/lints
     version: '>=0.1.0'
 

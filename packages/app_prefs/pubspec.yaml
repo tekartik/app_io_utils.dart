@@ -9,15 +9,15 @@ environment:
 dependencies:
   tekartik_app_io_sqflite:
     git:
-      url: git://github.com/tekartik/app_io_utils.dart
+      url: https://github.com/tekartik/app_io_utils.dart
       path: app_sqflite
-      ref: null_safety
+      ref: dart2_3
     version: '>=0.1.0'
   tekartik_prefs_sembast:
     git:
-      url: git://github.com/tekartik/prefs.dart
+      url: https://github.com/tekartik/prefs.dart
       path: prefs_sembast
-      ref: null_safety
+      ref: dart2_3
     version: '>=0.1.0'
   path:
 
@@ -27,8 +27,8 @@ dev_dependencies:
   test:
   tekartik_lints:
     git:
-      url: git://github.com/tekartik/common.dart
-      ref: null_safety
+      url: https://github.com/tekartik/common.dart
+      ref: dart2_3
       path: packages/lints
     version: '>=0.1.0'
 

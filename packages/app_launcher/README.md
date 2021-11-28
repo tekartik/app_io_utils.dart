@@ -8,8 +8,8 @@ Helper for launching desktop application (chrome, notepad, file explorer).
 dependencies:
   tekartik_app_io_launcher:
     git:
-      url: git://github.com/tekartik/app_io_utils.dart
-      ref: null_safety
+      url: https://github.com/tekartik/app_io_utils.dart
+      ref: dart2_3
       path: packages/app_launcher
     version: '>=0.1.1'
 ```
