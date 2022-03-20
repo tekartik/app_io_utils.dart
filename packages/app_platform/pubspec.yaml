@@ -13,7 +13,13 @@ dependencies:
       url: https://github.com/tekartik/platform.dart
       ref: dart2_3
       path: platform_io
-
+    version: '>=0.1.0'
+  tekartik_platform:
+    git:
+      url: https://github.com/tekartik/platform.dart
+      ref: dart2_3
+      path: platform
+    version: '>=0.1.0'
 dev_dependencies:
   process_run:
   test:

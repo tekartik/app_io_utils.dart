@@ -5,8 +5,6 @@ import 'package:process_run/shell_run.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-import 'sqflite_import.dart';
-
 String buildDatabasesPath(String packageName) {
   var dataPath = join(userAppDataPath, packageName, 'databases');
   try {
@@ -27,8 +25,7 @@ DatabaseFactory get databaseFactory => _defaultDatabaseFactory;
 Future<DatabaseFactory> initDatabaseFactory(String packageName) async {
   if (Platform.isLinux || Platform.isWindows) {
     var databaseFactory = databaseFactoryFfi;
-    await databaseFactory
-        .compatSetDatabasesPath(buildDatabasesPath(packageName));
+    await databaseFactory.setDatabasesPath(buildDatabasesPath(packageName));
     return databaseFactory;
   } else {
     return databaseFactory;
@@ -41,8 +38,8 @@ DatabaseFactory getDatabaseFactory({String? packageName, String? rootPath}) {
     var databaseFactory = databaseFactoryFfi;
     sqfliteFfiInit();
     // Should not return a future...or ignore
-    databaseFactory.compatSetDatabasesPath(
-        rootPath ?? buildDatabasesPath(packageName ?? '.'));
+    databaseFactory
+        .setDatabasesPath(rootPath ?? buildDatabasesPath(packageName ?? '.'));
     return databaseFactory;
   } else {
     return databaseFactory;
