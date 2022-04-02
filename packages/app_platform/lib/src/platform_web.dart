@@ -1,7 +1,7 @@
 // Noop
-import 'package:tekartik_platform/context.dart' show PlatformContext;
+import 'import.dart' show PlatformContext;
 
-// No longet needed
+/// No longer needed
 void platformInit() {}
 
 PlatformContext get platformContext =>
