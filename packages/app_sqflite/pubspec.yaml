@@ -13,6 +13,7 @@ dependencies:
   process_run:
 dev_dependencies:
   pedantic:
+  process_run:
   test:
   dev_test:
   tekartik_lints:
