@@ -7,24 +7,24 @@ import 'package:tekartik_app_io_launcher/launcher.dart';
 ///
 /// Linux only for now
 Future<bool> launchBrowser(Uri uri, {bool verbose = false}) async {
-  Future _run(String command) async {
+  Future doRun(String command) async {
     await run(command, commandVerbose: verbose);
   }
 
   var url = shellArgument(uri.toString());
   if (await which('xdg-open') != null) {
-    await _run('xdg-open $url');
+    await doRun('xdg-open $url');
     return true;
   }
   if (Platform.isMacOS) {
     if (await which('open') != null) {
-      await _run('open $url');
+      await doRun('open $url');
       return true;
     }
   } else if (Platform.isWindows) {
     try {
       // Somehow it returns an exit code of 1...
-      await _run('explorer $url');
+      await doRun('explorer $url');
     } catch (_) {}
     return true;
   }

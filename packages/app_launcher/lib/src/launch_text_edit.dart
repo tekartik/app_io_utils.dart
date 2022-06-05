@@ -11,29 +11,29 @@ Future<bool> launchTextEdit(String path,
       file.createSync(recursive: true);
     }
   }
-  Future _run(String command) async {
+  Future doRun(String command) async {
     await run(command, commandVerbose: verbose);
   }
 
   path = shellArgument(path);
   if (Platform.isLinux) {
     if (await which('gedit') != null) {
-      await _run('gedit $path');
+      await doRun('gedit $path');
       return true;
     }
   } else if (Platform.isWindows) {
     if (await which('notepad') != null) {
-      await _run('notepad $path');
+      await doRun('notepad $path');
       return true;
     }
   } else if (Platform.isMacOS) {
     if (await which('open') != null) {
-      await _run('open -a TextEdit $path');
+      await doRun('open -a TextEdit $path');
       return true;
     }
   }
   if (await which('vi') != null) {
-    await _run('vi $path');
+    await doRun('vi $path');
     return true;
   }
   return false;
