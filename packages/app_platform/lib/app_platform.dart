@@ -1,11 +1,10 @@
-import 'package:tekartik_platform/context.dart' show PlatformContext;
-
+import 'src/import.dart' show PlatformContext;
 import 'src/platform.dart' as src;
 
-export 'package:tekartik_platform/context.dart' show PlatformContext;
+export 'src/import.dart' show PlatformContext;
 
-/// To call on start to support Linux/Windows, ignored on Web and Mobile.
+/// Deprecated, no longer needed
 void platformInit() => src.platformInit();
 
-/// Browser or io context.
+/// io context or throw. io is always non null insiade
 PlatformContext get platformContext => src.platformContext;

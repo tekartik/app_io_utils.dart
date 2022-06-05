@@ -6,23 +6,23 @@ import 'package:process_run/shell.dart';
 ///
 /// Linux (nautilus) only for now
 Future<bool> launchFileExplorer(String path, {bool verbose = false}) async {
-  Future _run(String command) async {
+  Future doRun(String command) async {
     await run(command, commandVerbose: verbose);
   }
 
   path = shellArgument(path);
   if (Platform.isLinux) {
     if (await which('nautilus') != null) {
-      await _run('nautilus $path');
+      await doRun('nautilus $path');
       return true;
     }
   } else if (Platform.isMacOS) {
     if (await which('open') != null) {
-      await _run('open $path');
+      await doRun('open $path');
       return true;
     }
   } else if (Platform.isWindows) {
-    await _run('start $path');
+    await doRun('start $path');
     return true;
   }
   return false;

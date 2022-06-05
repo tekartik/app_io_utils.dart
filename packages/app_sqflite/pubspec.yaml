@@ -9,9 +9,8 @@ environment:
 dependencies:
   sqflite_common_ffi: '>=2.0.0'
   sqflite_common: '>=2.0.0+1'
-  process_run:
   path:
-
+  process_run:
 dev_dependencies:
   pedantic:
   test:

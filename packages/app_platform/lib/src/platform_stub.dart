@@ -1,6 +1,6 @@
-import 'package:tekartik_platform/context.dart';
+import 'import.dart'; // ignore: depend_on_referenced_packages
 
-/// Support basic init for Io (Linux, Windows), skipped for Web and Mobile.
+/// No longer needed
 void platformInit() => _stub('platformInit');
 
 /// Browser or io context.

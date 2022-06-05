@@ -14,5 +14,5 @@ dependencies:
       url: https://github.com/tekartik/app_io_utils.dart
       ref: dart2_3
       path: packages/app_platform
-    version: '>=0.1.0'
+    version: '>=0.3.1'
 ```
