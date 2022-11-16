@@ -12,7 +12,7 @@ dependencies:
     git:
       url: https://github.com/tekartik/app_flutter_utils.dart
       ref: dart2_3
-      path: app_sqflite
+      path: packages/app_sqflite
     version: '>=0.2.0'
 ```
 

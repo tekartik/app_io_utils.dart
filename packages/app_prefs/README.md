@@ -9,12 +9,12 @@ on the web.
 
 ```yaml
 dependencies:
-  tekartik_app_prefs:
+  tekartik_app_io_prefs:
     git:
-      url: https://github.com/tekartik/app_flutter_utils.dart
+      url: https://github.com/tekartik/app_io_utils.dart
       ref: dart2_3
-      path: app_prefs
-    version: '>=0.1.0'
+      path: packages/app_prefs
+    version: '>=0.1.1'
 ```
 
 ### Usage
