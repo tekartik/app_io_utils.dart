@@ -10,7 +10,7 @@ IDB factory for flutter app (mobile & web)
 dependencies:
   tekartik_app_io_sqflite:
     git:
-      url: https://github.com/tekartik/app_flutter_utils.dart
+      url: https://github.com/tekartik/app_io_utils.dart
       ref: dart2_3
       path: packages/app_sqflite
     version: '>=0.2.0'

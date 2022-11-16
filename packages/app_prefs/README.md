@@ -1,4 +1,4 @@
-# tekartik_app_flutter_utils/app_prefs
+# tekartik_app_io_utils/app_prefs
 
 Prefs helper for flutter application. It uses sqflite on mobile and indexed db
 on the web.

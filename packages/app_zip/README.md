@@ -8,7 +8,7 @@
 dependencies:
   tekartik_app_io_zip:
     git:
-      url: https://github.com/tekartik/app_flutter_utils.dart
+      url: https://github.com/tekartik/app_io_utils.dart
       ref: dart2_3
       path: packages/app_zip
     version: '>=0.2.0'

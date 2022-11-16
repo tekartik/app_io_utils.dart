@@ -4,7 +4,7 @@ import 'package:archive/archive_io.dart';
 import 'package:path/path.dart';
 import 'package:tekartik_io_utils/file_utils.dart';
 
-Future unzip(String zipFilePath, {String? dst}) async {
+Future<void> unzip(String zipFilePath, {String? dst}) async {
   dst ??= join(dirname(zipFilePath), basenameWithoutExtension(zipFilePath));
   // Read the Zip file from disk.
   List<int> bytes = await File(zipFilePath).readAsBytes();

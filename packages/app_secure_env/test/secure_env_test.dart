@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 final secureEnvKey = SecureEnvKey(
     key: 'maSLWhDzFQg0dhIXKxev', password: 'x9cQYGAw8YVnhJyNmjc6cmq29XGnZgvD');
 void main() {
-  test('calculate', () async {
+  test('set/get', () async {
     await secureEnvKey.setValue('123');
     expect(
         ShellEnvironment().vars[secureEnvKey.key], 'XQpWzENKt8PCHRRgktowUA==');
