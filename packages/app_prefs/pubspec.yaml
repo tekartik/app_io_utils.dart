@@ -10,7 +10,7 @@ dependencies:
   tekartik_app_io_sqflite:
     git:
       url: https://github.com/tekartik/app_io_utils.dart
-      path: app_sqflite
+      path: packages/app_sqflite
       ref: dart2_3
     version: '>=0.1.0'
   tekartik_prefs_sembast:
