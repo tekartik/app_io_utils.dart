@@ -12,7 +12,7 @@ dependencies:
   tekartik_app_io_prefs:
     git:
       url: https://github.com/tekartik/app_io_utils.dart
-      ref: dart2_3
+      ref: dart3a
       path: packages/app_prefs
     version: '>=0.1.1'
 ```
