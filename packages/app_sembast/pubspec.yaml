@@ -14,7 +14,7 @@ dependencies:
     git:
       url: https://github.com/tekartik/app_io_utils.dart
       ref: dart3a
-      path: app_sqflite
+      path: packages/app_sqflite
     version: '>=0.5.0'
   sqflite_common_ffi: 
 dev_dependencies:
