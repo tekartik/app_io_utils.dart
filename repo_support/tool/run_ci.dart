@@ -9,6 +9,7 @@ Future main() async {
     'app_sembast',
     'app_launcher',
     'app_zip',
+    'app_args',
     join('example', 'sqflite_test_app'),
   ]) {
     await packageRunCi(join('..', 'packages', dir));
