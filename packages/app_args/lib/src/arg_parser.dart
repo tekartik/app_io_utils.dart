@@ -7,14 +7,17 @@ extension TerkartikArgParserExt on args.ArgParser {
   void addArgument(Argument argument) {
     if (argument is Flag) {
       addFlag(argument.name,
-          abbr: argument.shortcut,
+          abbr: argument.abbr,
           help: argument.help,
-          defaultsTo: argument.value);
+          defaultsTo: argument.value,
+          negatable: argument.negatable,
+          hide: argument.hide);
     } else if (argument is Option) {
       addOption(argument.name,
-          abbr: argument.shortcut,
+          abbr: argument.abbr,
           help: argument.help,
-          defaultsTo: argument.value);
+          defaultsTo: argument.value,
+          hide: argument.hide);
     } else {
       throw UnsupportedError('invalid $argument (${argument.runtimeType})');
     }

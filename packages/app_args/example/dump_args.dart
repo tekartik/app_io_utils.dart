@@ -4,10 +4,14 @@ import 'package:tekartik_app_args/arg_parser.dart';
 void main(List<String> arguments) {
   print('args: $arguments');
 
-  var helpFlag = Flag.arg('help', shortcut: 'h');
-  var testOption = Option.arg('option', shortcut: 'o');
-  var argParser = ArgumentParser()..addArguments([helpFlag, testOption]);
+  //var helpFlag = Flag.arg('help', abbr: 'h');
+  var testOption = Option.arg('option', abbr: 'o');
+  var argParser = ArgumentParser()..addArguments([flagHelp, testOption]);
   argParser.parse(arguments);
-  print('$helpFlag');
+  print('$flagHelp');
   print('$testOption');
+
+  if (flagHelp.on) {
+    print(argParser.raw.usage);
+  }
 }

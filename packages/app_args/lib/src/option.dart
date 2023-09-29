@@ -2,13 +2,22 @@ import 'argument.dart';
 
 abstract class Option implements Argument<String> {
   factory Option.arg(String name,
-          {String? shortcut, String? value, String? help}) =>
-      _Option(name, shortcut: shortcut, value: value, help: help);
+      {String? abbr, String? help, String? defaultsTo, bool? hide}) {
+    var option = _Option();
+    option.name = name;
+    option.abbr = abbr;
+    option.help = help;
+    option.defaultsTo = defaultsTo;
+    option.hide = hide ?? false;
+
+    // Specific
+    option.value = defaultsTo;
+    return option;
+  }
 }
 
 class _Option extends ArgumentBase<String> implements Option {
-  _Option(super.name,
-      {required super.shortcut, required this.value, required super.help});
+  _Option();
 
   @override
   String? value;

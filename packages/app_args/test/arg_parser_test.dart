@@ -8,7 +8,7 @@ void main() {
     });
 
     test('parse help', () {
-      var helpFlag = Flag.arg('help', shortcut: 'h');
+      var helpFlag = Flag.arg('help', abbr: 'h');
       var argParser = ArgumentParser();
       argParser.addArgument(helpFlag);
       // ignore: unused_local_variable
@@ -20,7 +20,7 @@ void main() {
       expect(helpFlag.on, isFalse);
     });
     test('parse option', () {
-      var testOption = Option.arg('option', shortcut: 'o');
+      var testOption = Option.arg('option', abbr: 'o');
       var argParser = ArgumentParser();
       argParser.addArgument(testOption);
       // ignore: unused_local_variable

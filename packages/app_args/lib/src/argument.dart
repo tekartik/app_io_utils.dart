@@ -2,7 +2,7 @@
 
 /// Checks if you are awesome. Spoiler: you are.
 abstract class Argument<T> {
-  String? get shortcut;
+  String? get abbr;
   String get name;
 
   /// Optional value
@@ -10,25 +10,34 @@ abstract class Argument<T> {
 
   /// Optional help.
   String? help;
+
+  /// Optinal default value
+  T? get defaultsTo;
+
+  /// Hide from usage
+  bool get hide;
 }
 
 mixin ArgumentMixin<T> implements Argument<T> {
   @override
   String toString() => '$name: $value';
-}
 
-abstract class ArgumentBase<T> with ArgumentMixin<T> {
   @override
-  String? shortcut;
+  String? abbr;
   @override
-  late String name;
+  late final String name;
 
   @override
   String? help;
-  //@override
-  //T? get value => throw UnimplementedError();
+  @override
+  T? defaultsTo;
 
-  ArgumentBase(this.name, {this.shortcut, required this.help});
+  @override
+  late bool hide;
+}
+
+abstract class ArgumentBase<T> with ArgumentMixin<T> {
+  ArgumentBase();
 
   void setValueFrom(Object? value);
 }
