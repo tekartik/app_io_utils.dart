@@ -46,11 +46,11 @@ void main() {
       expect(testOption.value, ['value']);
       argParser.parse([]);
       expect(testOption.name, 'option');
-      expect(testOption.value, []);
-      expect(testOption.list, []);
+      expect(testOption.value, isEmpty);
+      expect(testOption.list, isEmpty);
       argParser.parse(['--option=value1,value2']);
       expect(testOption.name, 'option');
-      expect(testOption.value, ['value1','value2']);
+      expect(testOption.value, ['value1', 'value2']);
     });
   });
 }

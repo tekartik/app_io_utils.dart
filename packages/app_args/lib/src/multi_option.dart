@@ -1,7 +1,6 @@
 import 'argument.dart';
 
 abstract class MultiOption implements Argument<List<String>> {
-  @override
   List<String> get list;
 
   factory MultiOption.arg(String name,

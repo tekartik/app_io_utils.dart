@@ -18,14 +18,15 @@ extension TerkartikArgParserExt on args.ArgParser {
           help: argument.help,
           defaultsTo: argument.value,
           hide: argument.hide);
-    }  else if (argument is MultiOption) {
+    } else if (argument is MultiOption) {
       addMultiOption(argument.name,
           abbr: argument.abbr,
           help: argument.help,
           defaultsTo: argument.value,
           hide: argument.hide);
     } else {
-      throw UnsupportedError('invalid argument "$argument" (${argument.runtimeType})');
+      throw UnsupportedError(
+          'invalid argument "$argument" (${argument.runtimeType})');
     }
   }
 }
