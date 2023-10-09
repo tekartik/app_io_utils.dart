@@ -22,8 +22,8 @@ dependencies:
   tekartik_app_io_sembast:
     git:
       url: https://github.com/tekartik/app_io_utils.dart
-      ref: dart2_3
-      path: app_sembast
+      ref: dart3a
+      path: packages/app_sembast
     version: '>=0.1.0'
 ```
 

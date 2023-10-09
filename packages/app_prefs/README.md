@@ -1,4 +1,4 @@
-# tekartik_app_flutter_utils/app_prefs
+# tekartik_app_io_utils/app_prefs
 
 Prefs helper for flutter application. It uses sqflite on mobile and indexed db
 on the web.
@@ -9,12 +9,12 @@ on the web.
 
 ```yaml
 dependencies:
-  tekartik_app_prefs:
+  tekartik_app_io_prefs:
     git:
-      url: https://github.com/tekartik/app_flutter_utils.dart
-      ref: dart2_3
-      path: app_prefs
-    version: '>=0.1.0'
+      url: https://github.com/tekartik/app_io_utils.dart
+      ref: dart3a
+      path: packages/app_prefs
+    version: '>=0.1.1'
 ```
 
 ### Usage

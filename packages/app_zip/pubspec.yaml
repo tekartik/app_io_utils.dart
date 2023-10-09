@@ -1,0 +1,26 @@
+name: tekartik_app_io_zip
+description: IO zip helpers
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  path: ^1.8.0
+  archive: '>=2.0.13'
+  tekartik_io_utils:
+    git:
+      url: https://github.com/tekartik/io_utils.dart
+      ref: dart3a
+    version: '>=0.5.2'
+
+dev_dependencies:
+  lints: ^2.0.0
+  test: ^1.16.0
+  tekartik_lints:
+    git:
+      url: https://github.com/tekartik/common.dart
+      ref: dart3a
+      path: packages/lints
+    version: '>=0.1.0'

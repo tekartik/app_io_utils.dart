@@ -1,4 +1,5 @@
-export 'launch_browser.dart';
-export 'launch_chrome.dart';
-export 'launch_file_explorer.dart';
-export 'launch_text_edit.dart';
+export 'launch_browser.dart' show launchBrowser;
+export 'launch_chrome.dart' show launchChrome;
+export 'launch_file_explorer.dart' show launchFileExplorer;
+export 'launch_firefox.dart' show launchFirefox;
+export 'launch_text_edit.dart' show launchTextEdit;
