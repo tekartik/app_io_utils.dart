@@ -1,4 +1,6 @@
 /// Do not include with flutter_test. or add suffix.
+library;
+
 import 'package:tekartik_app_io_platform/app_platform.dart';
 
 final _platformContextIo = platformContext.io!;
