@@ -18,7 +18,7 @@ dependencies:
     version: '>=0.5.0'
   sqflite_common_ffi: 
 dev_dependencies:
-  dev_test:
+  dev_test: '>=0.16.2'
   process_run:
   test:
   tekartik_lints:
