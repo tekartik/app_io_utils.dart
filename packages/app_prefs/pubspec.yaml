@@ -30,7 +30,7 @@ dependencies:
   process_run:
 
 dev_dependencies:
-  dev_test:
+  dev_build:
   test:
   tekartik_lints:
     git:
