@@ -1,4 +1,6 @@
 @TestOn('vm')
+library;
+
 import 'package:process_run/shell.dart';
 import 'package:tekartik_app_secure_env/secure_env.dart';
 import 'package:test/test.dart';
