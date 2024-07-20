@@ -1,0 +1,34 @@
+name: tekartik_cmd_record
+description: Record command line process stdout, stderr and stdin
+version: 0.3.0
+homepage: https://github.com/tekartik/cmd_record.dart
+
+publish_to: none
+
+environment:
+  sdk: ^3.4.0
+
+dependencies:
+  process_run: '>=1.0.0'
+  tekartik_cmd_echo:
+    git:
+      url: https://github.com/tekartik/app_io_utils.dart
+      path: packages/cmd_echo
+      ref: dart3a
+    version: '>=0.2.0'
+  args:
+  path:
+  pub_semver:
+dev_dependencies:
+  test: '>=1.0.0'
+  dev_test: any
+
+dependency_overrides:
+  tekartik_cmd_echo:
+    path: ../cmd_echo
+#  process_run:
+#    git: https://github.com/tekartik/process_run.dart
+#    version: ">=0.5.4"
+#    path: ../process_run.dart
+executables:
+  cmd_record:

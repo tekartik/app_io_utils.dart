@@ -1,0 +1,22 @@
+name: tekartik_cmd_echo
+description: A echo command-line application.
+version: 0.2.1+1
+homepage: https://github.com/tekartik/cmd_echo.dart
+
+publish_to: none
+environment:
+  sdk: ^3.4.0
+
+dependencies:
+  tekartik_common_utils:
+    git:
+      url: https://github.com/tekartik/common_utils.dart
+      ref: dart3a
+    version: '>=0.9.7'
+  args: any
+  pub_semver: any
+  path: any
+  process_run: '>=1.0.0'
+
+dev_dependencies:
+  test: '>=1.0.0'
