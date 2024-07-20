@@ -38,14 +38,6 @@ updates:
     schedule:
       interval: "monthly"
   - package-ecosystem: "pub"
-    directory: "packages/cmd_echo"
-    schedule:
-      interval: "monthly"
-  - package-ecosystem: "pub"
-    directory: "packages/cmd_record"
-    schedule:
-      interval: "monthly"
-  - package-ecosystem: "pub"
     directory: "packages/example/sqflite_test_app"
     schedule:
       interval: "monthly"
