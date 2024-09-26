@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:path/path.dart';
 import 'package:process_run/shell_run.dart';
 import 'package:sembast/sembast_io.dart';
-import 'package:tekartik_prefs/prefs.dart';
 import 'package:tekartik_prefs_sembast/prefs.dart';
 
 PrefsFactory get prefsFactory => newPrefsFactorySembast(null);
