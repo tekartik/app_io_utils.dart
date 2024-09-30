@@ -4,9 +4,9 @@ export 'package:sembast/sembast.dart';
 
 /// Opinionated factory for flutter
 ///
-/// (app_dir)/db on iOS/Android or when getApplicationDocumentsDirectory is supported
+/// `(app_dir)/db` on iOS/Android or when getApplicationDocumentsDirectory is supported
 ///
-/// (app_data)/<package_name>/db on Desktop
+/// `(app_data)/<package_name>/`db on Desktop
 ///
 /// IndexedDB db for the web
 ///
