@@ -12,9 +12,15 @@ dependencies:
 
 dev_dependencies:
   test: '>=1.16.0'
+  dev_build: ">=1.0.1"
   tekartik_lints:
     git:
       url: https://github.com/tekartik/common.dart
       ref: dart3a
       path: packages/lints
     version: '>=0.1.0'
+  tekaly_assets:
+    git:
+      url: https://github.com/tekartikprj/tekaly.git
+      ref: dart3a
+      path: packages/tekaly_assets

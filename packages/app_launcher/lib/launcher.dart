@@ -9,4 +9,7 @@ export 'src/platform.dart'
         launchFileExplorer,
         launchTextEdit,
         launchBrowser,
-        launchFirefox;
+        launchFirefox,
+        launchImageViewer,
+        launchDefaultViewerPath,
+        launchDefaultViewer;
