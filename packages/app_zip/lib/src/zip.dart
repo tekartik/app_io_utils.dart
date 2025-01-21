@@ -8,5 +8,5 @@ Future<void> zip(String directoryPath, {String? dst}) async {
       dirname(directoryPath), '${basenameWithoutExtension(directoryPath)}.zip');
 
   await Directory(dirname(dst)).create(recursive: true);
-  ZipFileEncoder().zipDirectory(Directory(directoryPath), filename: dst);
+  await ZipFileEncoder().zipDirectory(Directory(directoryPath), filename: dst);
 }

@@ -4,6 +4,7 @@ import 'package:archive/archive_io.dart';
 import 'package:path/path.dart';
 import 'package:tekartik_io_utils/file_utils.dart';
 
+/// Unzip a zip file to a destination folder (default to a folder named after the zip file without the .zip extension)
 Future<void> unzip(String zipFilePath, {String? dst}) async {
   dst ??= join(dirname(zipFilePath), basenameWithoutExtension(zipFilePath));
   // Read the Zip file from disk.
