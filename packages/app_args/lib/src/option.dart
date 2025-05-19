@@ -1,8 +1,13 @@
 import 'argument.dart';
 
 abstract class Option implements Argument<String> {
-  factory Option.arg(String name,
-      {String? abbr, String? help, String? defaultsTo, bool? hide}) {
+  factory Option.arg(
+    String name, {
+    String? abbr,
+    String? help,
+    String? defaultsTo,
+    bool? hide,
+  }) {
     var option = _Option();
     option.name = name;
     option.abbr = abbr;

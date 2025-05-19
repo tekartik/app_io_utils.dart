@@ -6,27 +6,34 @@ import 'argument.dart';
 extension TerkartikArgParserExt on args.ArgParser {
   void addArgument(Argument argument) {
     if (argument is Flag) {
-      addFlag(argument.name,
-          abbr: argument.abbr,
-          help: argument.help,
-          defaultsTo: argument.value,
-          negatable: argument.negatable,
-          hide: argument.hide);
+      addFlag(
+        argument.name,
+        abbr: argument.abbr,
+        help: argument.help,
+        defaultsTo: argument.value,
+        negatable: argument.negatable,
+        hide: argument.hide,
+      );
     } else if (argument is Option) {
-      addOption(argument.name,
-          abbr: argument.abbr,
-          help: argument.help,
-          defaultsTo: argument.value,
-          hide: argument.hide);
+      addOption(
+        argument.name,
+        abbr: argument.abbr,
+        help: argument.help,
+        defaultsTo: argument.value,
+        hide: argument.hide,
+      );
     } else if (argument is MultiOption) {
-      addMultiOption(argument.name,
-          abbr: argument.abbr,
-          help: argument.help,
-          defaultsTo: argument.value,
-          hide: argument.hide);
+      addMultiOption(
+        argument.name,
+        abbr: argument.abbr,
+        help: argument.help,
+        defaultsTo: argument.value,
+        hide: argument.hide,
+      );
     } else {
       throw UnsupportedError(
-          'invalid argument "$argument" (${argument.runtimeType})');
+        'invalid argument "$argument" (${argument.runtimeType})',
+      );
     }
   }
 }

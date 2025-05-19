@@ -3,8 +3,13 @@ import 'argument.dart';
 abstract class MultiOption implements Argument<List<String>> {
   List<String> get list;
 
-  factory MultiOption.arg(String name,
-      {String? abbr, String? help, List<String>? defaultsTo, bool? hide}) {
+  factory MultiOption.arg(
+    String name, {
+    String? abbr,
+    String? help,
+    List<String>? defaultsTo,
+    bool? hide,
+  }) {
     var option = _MultiOption();
     option.name = name;
     option.abbr = abbr;

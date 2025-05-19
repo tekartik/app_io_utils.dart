@@ -4,7 +4,7 @@ version: 1.0.1
 publish_to: none
 
 environment:
-  sdk: ^3.5.0
+  sdk: ^3.7.0
 
 dependencies:
   path: ">=1.9.0"
@@ -24,3 +24,4 @@ dev_dependencies:
       ref: dart3a
       path: packages/lints
     version: '>=0.1.0'
+resolution: workspace

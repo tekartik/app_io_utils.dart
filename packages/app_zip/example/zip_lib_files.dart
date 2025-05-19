@@ -6,8 +6,9 @@ import 'package:path/path.dart';
 import 'package:tekartik_app_io_zip/zip.dart';
 
 Future<void> main() async {
-  var dstFile =
-      File(join('.dart_tool', 'tekartik_app_io_zip', 'test', 'lib_files.zip'));
+  var dstFile = File(
+    join('.dart_tool', 'tekartik_app_io_zip', 'test', 'lib_files.zip'),
+  );
   var dstZipDir = dstFile.parent;
 
   try {

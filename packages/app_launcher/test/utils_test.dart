@@ -12,8 +12,12 @@ void main() {
       expect(uri.toString(), 'file:///my_file');
     }
     expect(
-        pathToUriDefaultToFile('http://my_file').toString(), 'http://my_file');
-    expect(pathToUriDefaultToFile('git@github.com:tekartik/git').toString(),
-        'git@github.com:tekartik/git');
+      pathToUriDefaultToFile('http://my_file').toString(),
+      'http://my_file',
+    );
+    expect(
+      pathToUriDefaultToFile('git@github.com:tekartik/git').toString(),
+      'git@github.com:tekartik/git',
+    );
   });
 }

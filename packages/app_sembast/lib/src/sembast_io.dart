@@ -6,5 +6,6 @@ import 'package:tekartik_app_io_sqflite/sqflite.dart' as sqflite;
 ///
 /// Throw if no path defined
 DatabaseFactory getDatabaseFactory({String? packageName, String? rootPath}) =>
-    getDatabaseFactorySqflite(sqflite.getDatabaseFactory(
-        packageName: packageName, rootPath: rootPath));
+    getDatabaseFactorySqflite(
+      sqflite.getDatabaseFactory(packageName: packageName, rootPath: rootPath),
+    );

@@ -10,8 +10,11 @@ PrefsFactory get prefsFactory => newPrefsFactorySembast(null);
 final _prefsFactoryMap = <String?, PrefsFactory>{};
 
 PrefsFactory newPrefsFactorySembast(String? packageName) {
-  var dataPath =
-      join(userAppDataPath, packageName ?? 'com.tekartik.app_prefs', 'prefs');
+  var dataPath = join(
+    userAppDataPath,
+    packageName ?? 'com.tekartik.app_prefs',
+    'prefs',
+  );
   try {
     Directory(dirname(dataPath)).createSync(recursive: true);
   } catch (_) {}

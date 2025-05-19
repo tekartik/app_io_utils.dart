@@ -37,8 +37,9 @@ DatabaseFactory getDatabaseFactory({String? packageName, String? rootPath}) {
     var databaseFactory = databaseFactoryFfi;
     sqfliteFfiInit();
     // Should not return a future...or ignore
-    databaseFactory
-        .setDatabasesPath(rootPath ?? buildDatabasesPath(packageName ?? '.'));
+    databaseFactory.setDatabasesPath(
+      rootPath ?? buildDatabasesPath(packageName ?? '.'),
+    );
     return databaseFactory;
   } else {
     return databaseFactory;

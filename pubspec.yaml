@@ -1,0 +1,15 @@
+name: _
+publish_to: none
+environment:
+  sdk: ^3.6.0
+workspace:
+  - packages/app_args
+  - packages/app_launcher
+  - packages/app_platform
+  - packages/app_prefs
+  - packages/app_python
+  - packages/app_secure_env
+  - packages/app_sembast
+  - packages/app_sqflite
+  - packages/app_zip
+  - packages/example/sqflite_test_app

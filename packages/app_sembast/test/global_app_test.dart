@@ -2,8 +2,9 @@ import 'package:tekartik_app_io_sembast/sembast.dart';
 import 'package:test/test.dart';
 
 void main() {
-  var factory =
-      getDatabaseFactory(packageName: 'com.tekartik.app_io_utils.sembast.exp');
+  var factory = getDatabaseFactory(
+    packageName: 'com.tekartik.app_io_utils.sembast.exp',
+  );
   group('sembast', () {
     test('factory', () {
       expect(getDatabaseFactory, isNotNull);

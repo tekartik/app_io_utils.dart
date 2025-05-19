@@ -4,30 +4,28 @@ version: 0.5.1
 publish_to: none
 
 environment:
-  sdk: ^3.5.0
+  sdk: ^3.7.0
 
 dependencies:
-  sembast: '>=3.0.0+2'
+  sembast: ">=3.7.4+3"
   sembast_sqflite: '>=2.0.0'
-  path:
+  path: ">=1.9.0"
   tekartik_app_io_sqflite:
     git:
       url: https://github.com/tekartik/app_io_utils.dart
       ref: dart3a
       path: packages/app_sqflite
     version: '>=0.5.0'
-  sqflite_common_ffi: 
+  sqflite_common_ffi: ">=2.3.4" 
 dev_dependencies:
-  dev_build: '>=0.16.2'
-  process_run:
-  test:
+  dev_build: ">=1.1.2"
+  process_run: ">=1.2.1+1"
+  test: ">=1.24.0"
   tekartik_lints:
     git:
       url: https://github.com/tekartik/common.dart
       ref: dart3a
       path: packages/lints
     version: '>=0.1.0'
+resolution: workspace
 
-dependency_overrides:
-  tekartik_app_io_sqflite:
-    path: ../app_sqflite

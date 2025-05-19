@@ -4,10 +4,10 @@ version: 0.1.0
 publish_to: none
 
 environment:
-  sdk: ^3.5.0
+  sdk: ^3.7.0
 
 dependencies:
-  process_run:
+  process_run: ">=1.2.1+1"
   tekartik_app_crypto:
     git:
       url: https://github.com/tekartik/app_common_utils.dart
@@ -15,11 +15,12 @@ dependencies:
       path: app_crypto
     version: '>=0.2.2'
 dev_dependencies:
-  lints: '>=2.0.0'
-  test: '>=1.16.0'
+  lints: ">=5.0.0"
+  test: ">=1.24.0"
   tekartik_lints:
     git:
       url: https://github.com/tekartik/common.dart
       ref: dart3a
       path: packages/lints
     version: '>=0.1.0'
+resolution: workspace

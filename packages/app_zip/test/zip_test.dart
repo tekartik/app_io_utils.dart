@@ -27,8 +27,10 @@ void main() {
         expect(await hasExecutablePermission(dstTextFile.path), false);
         expect(await hasExecutablePermission(dstBinFile.path), true);
         expect((dstTextFile.statSync()).mode & executablePermissionModeMask, 0);
-        expect((dstBinFile.statSync()).mode & executablePermissionModeMask,
-            executablePermissionModeMask);
+        expect(
+          (dstBinFile.statSync()).mode & executablePermissionModeMask,
+          executablePermissionModeMask,
+        );
       }
     });
     test('zip_unzip', () async {

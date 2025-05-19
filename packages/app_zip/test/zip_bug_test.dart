@@ -25,8 +25,10 @@ void main() {
       expect((file.statSync()).mode & 0x49, 0x49);
 
       var dstFilePath = join(path, 'test.zip');
-      await ZipFileEncoder()
-          .zipDirectory(Directory(srcPath), filename: dstFilePath);
+      await ZipFileEncoder().zipDirectory(
+        Directory(srcPath),
+        filename: dstFilePath,
+      );
 
       // Read
       List<int> bytes = await File(dstFilePath).readAsBytes();

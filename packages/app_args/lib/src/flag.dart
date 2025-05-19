@@ -7,12 +7,14 @@ abstract class Flag implements Argument<bool> {
   /// Whether this flag can be negated.
   bool get negatable;
 
-  factory Flag.arg(String name,
-      {String? abbr,
-      String? help,
-      bool? defaultsTo,
-      bool? negatable,
-      bool? hide}) {
+  factory Flag.arg(
+    String name, {
+    String? abbr,
+    String? help,
+    bool? defaultsTo,
+    bool? negatable,
+    bool? hide,
+  }) {
     var flag = _Flag();
     flag.name = name;
     flag.abbr = abbr;
@@ -45,5 +47,9 @@ class _Flag extends ArgumentBase<bool> implements Flag {
   }
 }
 
-final flagHelp =
-    Flag.arg('help', abbr: 'h', help: 'Display help', negatable: false);
+final flagHelp = Flag.arg(
+  'help',
+  abbr: 'h',
+  help: 'Display help',
+  negatable: false,
+);

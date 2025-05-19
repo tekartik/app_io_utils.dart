@@ -4,7 +4,7 @@ version: 0.4.0
 publish_to: none
 
 environment:
-  sdk: ^3.5.0
+  sdk: ^3.7.0
 
 dependencies:
   tekartik_app_io_sqflite:
@@ -25,13 +25,13 @@ dependencies:
       path: prefs
       ref: dart3a
     version: '>=0.1.0'
-  path:
-  sembast:
-  process_run:
+  path: ">=1.9.0"
+  sembast: ">=3.7.4+3"
+  process_run: ">=1.2.1+1"
 
 dev_dependencies:
-  dev_build:
-  test:
+  dev_build: ">=1.1.2"
+  test: ">=1.24.0"
   tekartik_lints:
     git:
       url: https://github.com/tekartik/common.dart
@@ -39,9 +39,6 @@ dev_dependencies:
       path: packages/lints
     version: '>=0.1.0'
 
-dependency_overrides:
-  tekartik_app_io_sqflite:
-    path: ../app_sqflite
 _tmp_dependency_overrides:
   # temp dev
   tekartik_prefs_sembast:
@@ -50,3 +47,4 @@ _tmp_dependency_overrides:
     path: ../../../prefs.dart/prefs
   tekartik_common_utils:
     path: ../../../common_utils.dart
+resolution: workspace

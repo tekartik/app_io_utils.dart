@@ -6,8 +6,10 @@ import 'package:tekartik_app_io_launcher/launcher.dart';
 import 'utils.dart';
 
 /// Launch default viewer for a given path
-Future<bool> launchDefaultViewerPath(String path,
-    {bool verbose = false}) async {
+Future<bool> launchDefaultViewerPath(
+  String path, {
+  bool verbose = false,
+}) async {
   return launchDefaultViewer(pathToUriDefaultToFile(path), verbose: verbose);
 }
 
