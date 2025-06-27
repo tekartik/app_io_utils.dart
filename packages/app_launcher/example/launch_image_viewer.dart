@@ -7,8 +7,11 @@ Future<String> getTestImagePath() async {
   return _imagePath ??= await () async {
     var path = '.';
     var configMap = await pathGetPackageConfigMap(path);
-    var pkgPath =
-        pathPackageConfigMapGetPackagePath(path, configMap, 'tekaly_assets')!;
+    var pkgPath = pathPackageConfigMapGetPackagePath(
+      path,
+      configMap,
+      'tekaly_assets',
+    )!;
     var imgPath = join(pkgPath, 'lib', 'img', 'tekartik_logo_256.png');
     return imgPath;
   }();

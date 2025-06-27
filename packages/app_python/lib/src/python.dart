@@ -15,14 +15,12 @@ Future<void> pythonEnvInit({List<String>? paths}) async {
         if (Directory(path).existsSync()) {
           var pythonPath = join(path, 'bin', 'python3');
           var pipPath = join(path, 'bin', 'pip3');
-          shellEnvironment =
-              ShellEnvironment()
-                ..aliases['python3'] = pythonPath
-                ..aliases['python'] = pythonPath;
-          shellEnvironment =
-              ShellEnvironment()
-                ..aliases['pip3'] = pipPath
-                ..aliases['pip'] = pipPath;
+          shellEnvironment = ShellEnvironment()
+            ..aliases['python3'] = pythonPath
+            ..aliases['python'] = pythonPath;
+          shellEnvironment = ShellEnvironment()
+            ..aliases['pip3'] = pipPath
+            ..aliases['pip'] = pipPath;
           return;
         }
       }

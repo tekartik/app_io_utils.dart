@@ -26,8 +26,9 @@ PrefsFactory getPrefsFactory({String? packageName}) {
   if (Platform.isLinux || Platform.isWindows) {
     var prefsFactory = _prefsFactoryMap[packageName];
     if (prefsFactory == null) {
-      _prefsFactoryMap[packageName] =
-          prefsFactory = newPrefsFactorySembast(packageName);
+      _prefsFactoryMap[packageName] = prefsFactory = newPrefsFactorySembast(
+        packageName,
+      );
     }
     return prefsFactory;
   } else {
