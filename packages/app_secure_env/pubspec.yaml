@@ -11,7 +11,6 @@ dependencies:
   tekartik_app_crypto:
     git:
       url: https://github.com/tekartik/app_common_utils.dart
-      ref: dart3a
       path: app_crypto
     version: '>=0.2.2'
 dev_dependencies:
@@ -20,7 +19,6 @@ dev_dependencies:
   tekartik_lints:
     git:
       url: https://github.com/tekartik/common.dart
-      ref: dart3a
       path: packages/lints
     version: '>=0.1.0'
 resolution: workspace

@@ -10,24 +10,20 @@ dependencies:
   tekartik_test_menu_io:
     git:
       url: https://github.com/tekartik/test_menu.dart
-      ref: dart3a
       path: test_menu_io
     version: '>=0.2.3'
   tekartik_common_utils:
     git:
       url: https://github.com/tekartik/common_utils.dart
-      ref: dart3a
     version: '>=0.2.3'
   tekartik_app_io_sqflite:
     git:
       url: https://github.com/tekartik/app_io_utils.dart
-      ref: dart3a
       path: packages/app_sqflite
     version: '>=0.1.0'
   tekartik_app_io_platform:
     git:
       url: https://github.com/tekartik/app_io_utils.dart
-      ref: dart3a
       path: packages/app_platform
     version: '>=0.1.0'
 dev_dependencies:

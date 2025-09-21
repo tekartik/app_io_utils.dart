@@ -9,7 +9,6 @@ dependencies:
   tekartik_app_io_launcher:
     git:
       url: https://github.com/tekartik/app_io_utils.dart
-      ref: dart3a
       path: packages/app_launcher
     version: '>=0.1.1'
 ```

@@ -11,19 +11,16 @@ dependencies:
     git:
       url: https://github.com/tekartik/app_io_utils.dart
       path: packages/app_sqflite
-      ref: dart3a
     version: '>=0.1.0'
   tekartik_prefs_sembast:
     git:
       url: https://github.com/tekartik/prefs.dart
       path: prefs_sembast
-      ref: dart3a
     version: '>=0.1.0'
   tekartik_prefs:
     git:
       url: https://github.com/tekartik/prefs.dart
       path: prefs
-      ref: dart3a
     version: '>=0.1.0'
   path: ">=1.9.0"
   sembast: ">=3.7.4+3"
@@ -35,7 +32,6 @@ dev_dependencies:
   tekartik_lints:
     git:
       url: https://github.com/tekartik/common.dart
-      ref: dart3a
       path: packages/lints
     version: '>=0.1.0'
 
