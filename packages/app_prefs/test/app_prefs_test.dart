@@ -8,6 +8,7 @@ void main() async {
       var prefs = await prefsFactory.openPreferences('test_prefs.db');
       var value = prefs.getInt('value') ?? 0;
       prefs.setInt('value', ++value);
+      // ignore: avoid_print
       print('prefs set to $value');
       // Should increment at each test
     });

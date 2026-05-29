@@ -1,4 +1,5 @@
 import 'package:process_run/shell.dart';
+import 'package:process_run/stdio.dart';
 import 'package:tekartik_app_secure_env/secure_env.dart';
 
 final secureEnvKey = SecureEnvKey(
@@ -8,6 +9,6 @@ final secureEnvKey = SecureEnvKey(
 
 void main(List<String> arguments) async {
   await secureEnvKey.setFromInput();
-  print(await secureEnvKey.getValue());
+  stdout.writeln(await secureEnvKey.getValue());
   await sharedStdIn.terminate();
 }

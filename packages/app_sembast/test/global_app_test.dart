@@ -20,6 +20,7 @@ void main() {
         }
 
         var db = await open();
+        // ignore: avoid_print
         print(db.path);
         await store.record('k').put(db, 'v');
         await db.close();

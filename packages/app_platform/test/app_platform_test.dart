@@ -17,6 +17,7 @@ void main() async {
   group('platform', () {
     test('context', () {
       expect(platformContext, isNotNull);
+      // ignore: avoid_print
       print(jsonPretty(platformContext.toMap()));
     });
   });

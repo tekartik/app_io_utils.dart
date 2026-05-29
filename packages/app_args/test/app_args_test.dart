@@ -8,7 +8,6 @@ void main() {
     });
 
     test('flag', () {
-      print('test');
       expect(flagHelp.name, 'help');
     });
   });

@@ -4,7 +4,7 @@ version: 0.0.1
 publish_to: none
 
 environment:
-  sdk: ^3.9.0
+  sdk: ^3.12.0
 
 dependencies:
   tekartik_test_menu_io:
@@ -27,7 +27,7 @@ dependencies:
       path: packages/app_platform
     version: '>=0.1.0'
 dev_dependencies:
-  dev_build: ">=1.1.2"
+  dev_build: ">=1.1.7+3"
 
 
 _tmp_dependency_overrides:

@@ -1,3 +1,4 @@
+import 'package:process_run/stdio.dart';
 import 'package:tekartik_app_io_sqflite/sqflite.dart';
 
 Future<void> main() async {
@@ -33,8 +34,8 @@ Future<void> main() async {
 
   var toggle = result.first['value'] == 1;
 
-  print(result);
-  print('toggle: $toggle');
+  stdout.writeln(result);
+  stdout.writeln('toggle: $toggle');
   toggle = !toggle;
   await prefs.update(
     'Pref',
@@ -43,5 +44,5 @@ Future<void> main() async {
     whereArgs: ['toggle'],
   );
   await prefs.close();
-  print('set toogle to $toggle');
+  stdout.writeln('set toogle to $toggle');
 }
