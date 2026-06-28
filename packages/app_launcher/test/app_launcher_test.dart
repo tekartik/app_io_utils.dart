@@ -10,6 +10,10 @@ void main() async {
       launchTextEdit;
       // ignore: unnecessary_statements
       launchFileExplorer;
+      // ignore: unnecessary_statements
+      launchTerminal;
+      // ignore: unnecessary_statements
+      LaunchTerminalOptions;
     });
   });
 }

@@ -12,4 +12,6 @@ export 'src/platform.dart'
         launchFirefox,
         launchImageViewer,
         launchDefaultViewerPath,
-        launchDefaultViewer;
+        launchDefaultViewer,
+        launchTerminal,
+        LaunchTerminalOptions;

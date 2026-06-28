@@ -36,3 +36,10 @@ Launch File explorer:
 ```dart
 await launchFileExplorer('<my directory path>');
 ```
+
+Launch Terminal:
+```dart
+await launchTerminal(
+  options: LaunchTerminalOptions(directoryPath: '<my directory path>'),
+);
+```
