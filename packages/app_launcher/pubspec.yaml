@@ -20,6 +20,6 @@ dev_dependencies:
     version: '>=0.1.0'
   tekaly_assets:
     git:
-      url: https://github.com/tekartikprj/tekaly.git
+      url: https://github.com/tekartikprj/tekaly
       path: packages/tekaly_assets
 resolution: workspace
