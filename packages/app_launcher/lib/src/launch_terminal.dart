@@ -39,6 +39,7 @@ Future<bool> launchTerminal({
       var dirArg = directoryPath != null
           ? ' --working-directory=${shellArgument(directoryPath)}'
           : '';
+
       await doRun('gnome-terminal$dirArg');
       return true;
     }
@@ -46,6 +47,7 @@ Future<bool> launchTerminal({
       var dirArg = directoryPath != null
           ? ' --working-directory=${shellArgument(directoryPath)}'
           : '';
+
       await doRun('xfce4-terminal$dirArg');
       return true;
     }
@@ -53,12 +55,14 @@ Future<bool> launchTerminal({
       var dirArg = directoryPath != null
           ? ' --workdir ${shellArgument(directoryPath)}'
           : '';
+
       await doRun('konsole$dirArg');
       return true;
     }
   } else if (Platform.isMacOS) {
     if (await which('open') != null) {
       var dir = directoryPath ?? '.';
+
       await doRun('open -a Terminal ${shellArgument(dir)}');
       return true;
     }

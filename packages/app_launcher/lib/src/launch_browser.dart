@@ -28,5 +28,6 @@ Future<bool> launchBrowser(Uri uri, {bool verbose = false}) async {
     } catch (_) {}
     return true;
   }
+
   return launchChrome(uri, verbose: verbose);
 }

@@ -10,5 +10,6 @@ Future<void> zip(String directoryPath, {String? dst}) async {
   );
 
   await Directory(dirname(dst)).create(recursive: true);
+
   await ZipFileEncoder().zipDirectory(Directory(directoryPath), filename: dst);
 }

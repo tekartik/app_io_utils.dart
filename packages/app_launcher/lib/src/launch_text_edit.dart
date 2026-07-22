@@ -14,6 +14,7 @@ Future<bool> launchTextEdit(
       file.createSync(recursive: true);
     }
   }
+
   Future doRun(String command) async {
     await run(command, commandVerbose: verbose);
   }

@@ -14,7 +14,6 @@ Future<bool> launchDefaultViewerPath(
 }
 
 /// Launch default
-///
 Future<bool> launchDefaultViewer(Uri uri, {bool verbose = false}) async {
   Future doRun(String command) async {
     await run(command, commandVerbose: verbose);
@@ -37,5 +36,6 @@ Future<bool> launchDefaultViewer(Uri uri, {bool verbose = false}) async {
     } catch (_) {}
     return true;
   }
+
   return launchChrome(uri, verbose: verbose);
 }
