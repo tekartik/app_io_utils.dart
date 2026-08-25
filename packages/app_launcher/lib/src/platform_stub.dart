@@ -35,6 +35,10 @@ Future<bool> launchDefaultViewerPath(String path, {bool verbose = false}) =>
     _stub('launchDefaultViewerPath');
 
 /// Only for io
+Future<bool> launchIdea({List<String>? args, bool verbose = false}) =>
+    _stub('launchIdea');
+
+/// Only for io
 Future<bool> launchTerminal({
   LaunchTerminalOptions? options,
   bool verbose = false,

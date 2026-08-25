@@ -14,4 +14,5 @@ export 'src/platform.dart'
         launchDefaultViewerPath,
         launchDefaultViewer,
         launchTerminal,
+        launchIdea,
         LaunchTerminalOptions;

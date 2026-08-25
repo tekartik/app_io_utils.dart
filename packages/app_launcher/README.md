@@ -37,6 +37,11 @@ Launch File explorer:
 await launchFileExplorer('<my directory path>');
 ```
 
+Launch IntelliJ IDEA:
+```dart
+await launchIdea(args: ['<my project path>']);
+```
+
 Launch Terminal:
 ```dart
 await launchTerminal(

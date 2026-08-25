@@ -4,6 +4,7 @@ export 'launch_default_viewer.dart'
     show launchDefaultViewer, launchDefaultViewerPath;
 export 'launch_file_explorer.dart' show launchFileExplorer;
 export 'launch_firefox.dart' show launchFirefox;
+export 'launch_idea.dart' show launchIdea;
 export 'launch_image_viewer.dart' show launchImageViewer;
 export 'launch_terminal.dart' show launchTerminal, LaunchTerminalOptions;
 export 'launch_text_edit.dart' show launchTextEdit;

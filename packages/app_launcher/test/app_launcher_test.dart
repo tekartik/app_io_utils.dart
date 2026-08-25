@@ -14,6 +14,8 @@ void main() async {
       launchTerminal;
       // ignore: unnecessary_statements
       LaunchTerminalOptions;
+      // ignore: unnecessary_statements
+      launchIdea;
     });
   });
 }
