@@ -3,72 +3,106 @@ import 'dart:io';
 import 'package:process_run/shell.dart';
 
 import 'launch_terminal_options.dart';
+import 'launch_utils.dart';
 
 export 'launch_terminal_options.dart' show LaunchTerminalOptions;
 
-/// Launch terminal.
+/// Terminal emulator commands tried on linux, in order.
 ///
-/// Spawns a new terminal window.
+/// `xdg-terminal-exec` and `x-terminal-emulator` resolve to the terminal the
+/// user (or the distribution) configured, the others are the common desktop
+/// environment and standalone ones.
+const _linuxCommands = <String>[
+  'xdg-terminal-exec',
+  'x-terminal-emulator',
+  'gnome-terminal',
+  'konsole',
+  'xfce4-terminal',
+  'mate-terminal',
+  'tilix',
+  'terminator',
+  'alacritty',
+  'kitty',
+  'wezterm',
+  'foot',
+  'xterm',
+];
+
+/// Working directory arguments of the linux terminals that need one.
+///
+/// The other terminals start in the directory they are spawned from, which is
+/// handled by the process working directory. `gnome-terminal` and the like
+/// talk to an already running server, so they need to be told explicitly.
+List<String> _linuxDirectoryArgs(String command, String directoryPath) =>
+    switch (command) {
+      'gnome-terminal' ||
+      'xfce4-terminal' ||
+      'mate-terminal' ||
+      'terminator' => ['--working-directory=$directoryPath'],
+      'konsole' => ['--workdir', directoryPath],
+      'tilix' => ['--working-directory=$directoryPath'],
+      _ => <String>[],
+    };
+
+/// Launch a terminal emulator, spawning a new terminal window.
+///
+/// The window opens in [LaunchTerminalOptions.directoryPath] when given.
+///
+/// Returns false when no terminal could be launched.
 Future<bool> launchTerminal({
   LaunchTerminalOptions? options,
   bool verbose = false,
 }) async {
-  Future doRun(String command, {String? workingDirectory}) async {
-    await run(
-      command,
-      commandVerbose: verbose,
-      workingDirectory: workingDirectory,
-    );
-  }
-
   var directoryPath = options?.directoryPath;
   if (directoryPath != null) {
     directoryPath = Directory(directoryPath).absolute.path;
   }
 
-  if (Platform.isLinux) {
-    if (await which('xdg-terminal-exec') != null) {
-      await doRun('xdg-terminal-exec', workingDirectory: directoryPath);
-      return true;
-    }
-    if (await which('x-terminal-emulator') != null) {
-      await doRun('x-terminal-emulator', workingDirectory: directoryPath);
-      return true;
-    }
-    if (await which('gnome-terminal') != null) {
-      var dirArg = directoryPath != null
-          ? ' --working-directory=${shellArgument(directoryPath)}'
-          : '';
+  if (Platform.isMacOS) {
+    var executable = await which('open') ?? 'open';
+    return await startDetached(executable, [
+      '-a',
+      'Terminal',
+      directoryPath ?? '.',
+    ], verbose: verbose);
+  }
 
-      await doRun('gnome-terminal$dirArg');
-      return true;
+  if (Platform.isWindows) {
+    // Windows Terminal when installed, the good old console otherwise.
+    var wt = await which('wt');
+    if (wt != null) {
+      if (await startDetached(wt, [
+        if (directoryPath != null) ...['-d', directoryPath],
+      ], verbose: verbose)) {
+        return true;
+      }
     }
-    if (await which('xfce4-terminal') != null) {
-      var dirArg = directoryPath != null
-          ? ' --working-directory=${shellArgument(directoryPath)}'
-          : '';
+    var cmd = await which('cmd') ?? 'cmd';
+    // `start` is a cmd builtin, it detaches the new console from this one.
+    return await startDetached(
+      cmd,
+      ['/c', 'start', 'cmd'],
+      workingDirectory: directoryPath,
+      verbose: verbose,
+    );
+  }
 
-      await doRun('xfce4-terminal$dirArg');
+  for (var command in _linuxCommands) {
+    var executable = await which(command);
+    if (executable == null) {
+      continue;
+    }
+    var arguments = directoryPath == null
+        ? <String>[]
+        : _linuxDirectoryArgs(command, directoryPath);
+    if (await startDetached(
+      executable,
+      arguments,
+      workingDirectory: directoryPath,
+      verbose: verbose,
+    )) {
       return true;
     }
-    if (await which('konsole') != null) {
-      var dirArg = directoryPath != null
-          ? ' --workdir ${shellArgument(directoryPath)}'
-          : '';
-
-      await doRun('konsole$dirArg');
-      return true;
-    }
-  } else if (Platform.isMacOS) {
-    if (await which('open') != null) {
-      var dir = directoryPath ?? '.';
-
-      await doRun('open -a Terminal ${shellArgument(dir)}');
-      return true;
-    }
-  } else if (Platform.isWindows) {
-    await doRun('start cmd', workingDirectory: directoryPath);
-    return true;
   }
   return false;
 }

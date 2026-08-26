@@ -2,28 +2,44 @@ import 'dart:io';
 
 import 'package:process_run/shell.dart';
 
-/// Launch file explorer
-///
-/// Linux (nautilus) only for now
-Future<bool> launchFileExplorer(String path, {bool verbose = false}) async {
-  Future doRun(String command) async {
-    await run(command, commandVerbose: verbose);
-  }
+import 'launch_utils.dart';
 
-  path = shellArgument(path);
-  if (Platform.isLinux) {
-    if (await which('nautilus') != null) {
-      await doRun('nautilus $path');
+/// File explorer (file manager) commands tried on linux, in order.
+///
+/// `xdg-open` opens the file manager the user configured, the others are the
+/// common desktop environment ones.
+const _linuxCommands = <String>[
+  'xdg-open',
+  'nautilus',
+  'dolphin',
+  'thunar',
+  'nemo',
+  'caja',
+  'pcmanfm',
+  'pcmanfm-qt',
+];
+
+/// Launch the file explorer (file manager) on [path], a folder or a file.
+///
+/// Returns false when no file explorer could be launched.
+Future<bool> launchFileExplorer(String path, {bool verbose = false}) async {
+  if (Platform.isMacOS) {
+    var executable = await which('open') ?? 'open';
+    return await startDetached(executable, [path], verbose: verbose);
+  }
+  if (Platform.isWindows) {
+    var executable = await which('explorer') ?? 'explorer';
+    // explorer exits with 1 even when it succeeds, detached we don't care.
+    return await startDetached(executable, [path], verbose: verbose);
+  }
+  for (var command in _linuxCommands) {
+    var executable = await which(command);
+    if (executable == null) {
+      continue;
+    }
+    if (await startDetached(executable, [path], verbose: verbose)) {
       return true;
     }
-  } else if (Platform.isMacOS) {
-    if (await which('open') != null) {
-      await doRun('open $path');
-      return true;
-    }
-  } else if (Platform.isWindows) {
-    await doRun('start $path');
-    return true;
   }
   return false;
 }
