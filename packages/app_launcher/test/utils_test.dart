@@ -21,4 +21,18 @@ void main() {
       'git@github.com:tekartik/git',
     );
   });
+  test('windows paths', () {
+    expect(
+      pathToUriDefaultToFile(r'C:\Users\x\img.png').toString(),
+      'file:///C:/Users/x/img.png',
+    );
+    expect(
+      pathToUriDefaultToFile('c:/Users/x/img.png').toString(),
+      'file:///c:/Users/x/img.png',
+    );
+    expect(
+      pathToUriDefaultToFile(r'\\server\share\img.png').toString(),
+      'file://server/share/img.png',
+    );
+  });
 }

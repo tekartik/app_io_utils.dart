@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:process_run/shell.dart';
 
+import 'launch_utils.dart';
+
 /// Returns true if the editor was launched or is terminated...no garantuee
 Future<bool> launchTextEdit(
   String path, {
@@ -15,30 +17,22 @@ Future<bool> launchTextEdit(
     }
   }
 
-  Future doRun(String command) async {
-    await run(command, commandVerbose: verbose);
-  }
-
   path = shellArgument(path);
   if (Platform.isLinux) {
     if (await which('gedit') != null) {
-      await doRun('gedit $path');
-      return true;
+      return await runLaunchCommand('gedit $path', verbose: verbose);
     }
   } else if (Platform.isWindows) {
     if (await which('notepad') != null) {
-      await doRun('notepad $path');
-      return true;
+      return await runLaunchCommand('notepad $path', verbose: verbose);
     }
   } else if (Platform.isMacOS) {
     if (await which('open') != null) {
-      await doRun('open -a TextEdit $path');
-      return true;
+      return await runLaunchCommand('open -a TextEdit $path', verbose: verbose);
     }
   }
   if (await which('vi') != null) {
-    await doRun('vi $path');
-    return true;
+    return await runLaunchCommand('vi $path', verbose: verbose);
   }
   return false;
 }

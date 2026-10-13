@@ -13,12 +13,18 @@ Future<void> unzip(String zipFilePath, {String? dst}) async {
   // Decode the Zip file
   final archive = ZipDecoder().decodeBytes(bytes);
 
+  // Check every entry before writing anything (zip slip).
+  final dstPath = normalize(absolute(dst));
+  final outPaths = [
+    for (final file in archive) _unzipEntryPath(dstPath, file.name),
+  ];
+
   // Extract the contents of the Zip archive to disk.
-  for (final file in archive) {
-    final filename = file.name;
+  for (final (index, file) in archive.indexed) {
+    final outPath = outPaths[index];
     if (file.isFile) {
       final data = file.content as List<int>;
-      var outFile = File(join(dst, filename));
+      var outFile = File(outPath);
       outFile.parent.createSync(recursive: true);
       await outFile.writeAsBytes(data, flush: true);
 
@@ -30,8 +36,23 @@ Future<void> unzip(String zipFilePath, {String? dst}) async {
         await setExecutablePermission(outFile.path);
       }
     } else {
-      var outDir = Directory(join(dst, filename));
+      var outDir = Directory(outPath);
       await outDir.create(recursive: true);
     }
   }
+}
+
+/// The path of an archive entry in [dstPath] (absolute and normalized).
+///
+/// Throws if the entry would be written outside [dstPath] (`../` or an
+/// absolute name).
+String _unzipEntryPath(String dstPath, String name) {
+  var path = normalize(join(dstPath, name));
+  if (path != dstPath && !isWithin(dstPath, path)) {
+    throw FileSystemException(
+      'unzip: entry outside the destination directory, refused',
+      name,
+    );
+  }
+  return path;
 }

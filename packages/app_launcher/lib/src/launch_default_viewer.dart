@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:process_run/shell.dart';
 import 'package:tekartik_app_io_launcher/launcher.dart';
 
+import 'launch_utils.dart';
 import 'utils.dart';
 
 /// Launch default viewer for a given path
@@ -13,27 +14,21 @@ Future<bool> launchDefaultViewerPath(
   return launchDefaultViewer(pathToUriDefaultToFile(path), verbose: verbose);
 }
 
-/// Launch default
+/// Launch default viewer for a given uri (falls back to chrome).
+///
+/// Returns false when nothing could be launched.
 Future<bool> launchDefaultViewer(Uri uri, {bool verbose = false}) async {
-  Future doRun(String command) async {
-    await run(command, commandVerbose: verbose);
-  }
-
   var url = shellArgument(uri.toString());
   if (await which('xdg-open') != null) {
-    await doRun('xdg-open $url');
-    return true;
+    return await runLaunchCommand('xdg-open $url', verbose: verbose);
   }
   if (Platform.isMacOS) {
     if (await which('open') != null) {
-      await doRun('open $url');
-      return true;
+      return await runLaunchCommand('open $url', verbose: verbose);
     }
   } else if (Platform.isWindows) {
-    try {
-      // Somehow it returns an exit code of 1...
-      await doRun('explorer $url');
-    } catch (_) {}
+    // Somehow it returns an exit code of 1...
+    await runLaunchCommand('explorer $url', verbose: verbose);
     return true;
   }
 

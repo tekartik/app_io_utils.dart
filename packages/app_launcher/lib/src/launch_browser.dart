@@ -1,33 +1,7 @@
-import 'dart:io';
+import 'launch_default_viewer.dart';
 
-import 'package:process_run/shell.dart';
-import 'package:tekartik_app_io_launcher/launcher.dart';
-
-/// Launch chrome
+/// Launch the default browser on [uri] (the default viewer of the url).
 ///
-/// Linux only for now
-Future<bool> launchBrowser(Uri uri, {bool verbose = false}) async {
-  Future doRun(String command) async {
-    await run(command, commandVerbose: verbose);
-  }
-
-  var url = shellArgument(uri.toString());
-  if (await which('xdg-open') != null) {
-    await doRun('xdg-open $url');
-    return true;
-  }
-  if (Platform.isMacOS) {
-    if (await which('open') != null) {
-      await doRun('open $url');
-      return true;
-    }
-  } else if (Platform.isWindows) {
-    try {
-      // Somehow it returns an exit code of 1...
-      await doRun('explorer $url');
-    } catch (_) {}
-    return true;
-  }
-
-  return launchChrome(uri, verbose: verbose);
-}
+/// Falls back to chrome. Returns false when nothing could be launched.
+Future<bool> launchBrowser(Uri uri, {bool verbose = false}) =>
+    launchDefaultViewer(uri, verbose: verbose);

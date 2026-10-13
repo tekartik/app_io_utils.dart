@@ -2,8 +2,10 @@
 
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:archive/archive_io.dart';
 import 'package:path/path.dart';
 import 'package:tekartik_app_io_zip/zip.dart';
 import 'package:tekartik_io_utils/directory_utils.dart';
@@ -63,6 +65,52 @@ void main() {
         expect((await dstTextFile.stat()).mode & executablePermissionModeMask, 0);
         expect((await dstBinFile.stat()).mode & executablePermissionModeMask, executablePermissionModeMask);
         */
+      }
+    });
+    test('unzip refuses entries outside the destination', () async {
+      var dir = await Directory.systemTemp.createTemp('app_zip_slip_');
+      try {
+        Future<String> writeZip(String name, List<String> entryNames) async {
+          var archive = Archive();
+          for (var entryName in entryNames) {
+            var data = utf8.encode('content of $entryName');
+            archive.addFile(ArchiveFile(entryName, data.length, data));
+          }
+          var zipPath = join(dir.path, name);
+          await File(zipPath).writeAsBytes(ZipEncoder().encode(archive));
+          return zipPath;
+        }
+
+        var dst = join(dir.path, 'out', 'inner');
+        for (var entryName in ['../evil.txt', 'sub/../../evil.txt']) {
+          // A valid entry first: nothing must be written at all.
+          var zipPath = await writeZip('slip.zip', ['ok.txt', entryName]);
+          await expectLater(
+            unzip(zipPath, dst: dst),
+            throwsA(isA<FileSystemException>()),
+          );
+          expect(File(join(dir.path, 'out', 'evil.txt')).existsSync(), isFalse);
+          expect(File(join(dst, 'ok.txt')).existsSync(), isFalse);
+        }
+
+        // Absolute entry name
+        var absolutePath = join(dir.path, 'absolute_evil.txt');
+        var zipPath = await writeZip('absolute.zip', [absolutePath]);
+        try {
+          await unzip(zipPath, dst: dst);
+        } on FileSystemException catch (_) {}
+        expect(File(absolutePath).existsSync(), isFalse);
+
+        // Dot segments that stay inside are fine
+        zipPath = await writeZip('inside.zip', ['a/../b.txt', './c.txt']);
+        await unzip(zipPath, dst: dst);
+        expect(
+          await File(join(dst, 'b.txt')).readAsString(),
+          'content of a/../b.txt',
+        );
+        expect(File(join(dst, 'c.txt')).existsSync(), isTrue);
+      } finally {
+        await dir.delete(recursive: true);
       }
     });
   });
