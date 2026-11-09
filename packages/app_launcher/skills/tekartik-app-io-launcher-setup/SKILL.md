@@ -37,7 +37,8 @@ Linux, macOS and Windows.
   library (everything under `lib/src/` is private).
 * Every launcher returns a `Future<bool>`: `true` when a suitable command
   was found and started (no guarantee that the application showed
-  anything), `false` when nothing usable is installed. All take
+  anything), `false` when nothing usable is installed or the command
+  failed (no exception). All take
   `verbose: false` by default; `verbose: true` echoes the command run.
 * Platform: `dart:io` only. On the web the same names exist (conditional
   import) but every call throws `UnimplementedError`: importing is safe,
@@ -58,8 +59,8 @@ Linux, macOS and Windows.
     name. Works for pdf, html, markdown, images...
   - `launchTextEdit(path, {doNotCreate})`: creates the file (and its parent
     directories) when missing unless `doNotCreate: true`, then runs `gedit`
-    (Linux), `notepad` (Windows), `open -a TextEdit` (macOS), `vi` as the
-    last resort.
+    (Linux), `notepad` (Windows), `open -a TextEdit` (macOS), `false`
+    otherwise (no `vi` fallback: without a terminal it never returned).
 * Folders: `launchFileExplorer(path)` shows a folder (or a file) in the
   file manager: `open`, `explorer`, or on Linux the first available of
   `xdg-open`, `nautilus`, `dolphin`, `thunar`, `nemo`, `caja`, `pcmanfm`,
@@ -78,13 +79,12 @@ Linux, macOS and Windows.
   `intellij-idea-community` on Linux.
 * Blocking or detached: `launchFileExplorer` and `launchTerminal` start a
   detached process and return at once. The others run the command with
-  process_run `run` and complete when it exits: for `launchTextEdit` that
-  is when the editor (or `vi`) is closed; browsers usually hand the url to
-  a running instance and exit immediately. A non zero exit code makes `run`
-  throw a `ShellException` (`package:process_run/shell.dart`), except in
-  `launchBrowser`/`launchDefaultViewer` on Windows (ignored) and in
-  `launchIdea` (returns false): wrap the call in `try`/`catch` when the
-  tool must not crash.
+  process_run `run` and complete when it exits: a browser, gedit or IDEA
+  already running takes the url or file and the command exits at once;
+  when it is not running the started process is the application itself
+  and the call completes only when its window is closed. A failing
+  command (non zero exit, missing executable) gives `false`, it does
+  not throw (only `launchTextEdit` can throw, creating the file).
 * Paths with spaces are fine (quoted with `shellArgument`, or passed as
   process arguments). Prefer absolute paths.
 * Tests: keep the launchers out of automated tests (they open windows and
@@ -177,7 +177,8 @@ Future<void> main(List<String> args) async {
 * Passing a path string to `launchBrowser`, `launchChrome` or
   `launchDefaultViewer`: they take a `Uri`; use `launchDefaultViewerPath`
   or `Uri.file(path)`.
-* Awaiting `launchTextEdit` inside a server or UI loop: it returns only
-  when the editor exits.
+* Awaiting `launchTextEdit`, `launchChrome`, `launchFirefox` or `launchIdea`
+  inside a server or UI loop: when the application was not running, it
+  returns only when its window is closed.
 * Ignoring a `false` result: nothing was opened, print the path or url so
   the user can open it.

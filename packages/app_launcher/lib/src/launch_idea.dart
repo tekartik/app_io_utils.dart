@@ -6,7 +6,8 @@ import 'package:process_run/shell.dart';
 ///
 /// [args] are passed to the IDE, typically the project or file paths to open.
 ///
-/// Returns true if the IDE was launched...no garantuee
+/// Returns true when a launcher command ran (no guarantee the IDE showed
+/// anything). When IDEA is not running yet, completes only when it exits.
 Future<bool> launchIdea({List<String>? args, bool verbose = false}) async {
   Future<bool> doRun(String command) async {
     try {

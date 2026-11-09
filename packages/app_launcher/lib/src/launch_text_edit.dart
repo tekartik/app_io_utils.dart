@@ -4,7 +4,12 @@ import 'package:process_run/shell.dart';
 
 import 'launch_utils.dart';
 
-/// Returns true if the editor was launched or is terminated...no garantuee
+/// Open [path] in a text editor: gedit (Linux), notepad (Windows), TextEdit
+/// (macOS); false when none is found. The file is created when missing
+/// unless [doNotCreate] is true.
+///
+/// Completes when the editor command exits: when the editor was not running
+/// yet, that is when its window is closed.
 Future<bool> launchTextEdit(
   String path, {
   bool verbose = false,
@@ -31,8 +36,7 @@ Future<bool> launchTextEdit(
       return await runLaunchCommand('open -a TextEdit $path', verbose: verbose);
     }
   }
-  if (await which('vi') != null) {
-    return await runLaunchCommand('vi $path', verbose: verbose);
-  }
+  // No vi fallback: run without a terminal (and with an open stdin) it waits
+  // forever, the call would never return.
   return false;
 }

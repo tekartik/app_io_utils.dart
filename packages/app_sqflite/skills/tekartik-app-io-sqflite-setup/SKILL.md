@@ -43,14 +43,17 @@ data directory (or a directory you choose). It re-exports the whole
   - `getDatabaseFactory({String? packageName, String? rootPath})`: the factory
     to use in an application.
   - `databaseFactory`: the plain ffi factory (`databaseFactoryFfi`), with no
-    ffi init and no databases path handling.
+    ffi init; it is the very object `getDatabaseFactory` returns, so it gets
+    the databases path set there.
   - `sqfliteWindowsFfiInit()`: runs `sqfliteFfiInit()`, only needed on Windows
     during development so that the sqlite3 dll is found.
 * `getDatabaseFactory` on Linux, Windows and macOS calls `sqfliteFfiInit()`
   and sets the databases path to `rootPath`, or to
   `<userAppDataPath>/<packageName>/databases` when only `packageName` is
   given (the directory is created if missing). On the other io platforms both
-  parameters are ignored and the default ffi factory is returned.
+  parameters are ignored and the default ffi factory is returned (on
+  Android/iOS its default directory is not writable: use
+  `tekartik_app_flutter_sqflite` there).
   `userAppDataPath` (`process_run`) is `~/.config` on Linux and macOS,
   `%APPDATA%` on Windows.
 * Always pass `packageName` (reverse dns, e.g. `com.example.my_tool`) in an

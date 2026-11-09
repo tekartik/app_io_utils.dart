@@ -1,5 +1,5 @@
 name: tekartik_app_python
-description: A starting point for Dart libraries or applications.
+description: Python helpers for Dart scripts (virtualenv aliases, pip install) on process_run.
 version: 1.0.0
 publish_to: none
 
