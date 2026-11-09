@@ -9,6 +9,7 @@ final secureEnvKey = SecureEnvKey(
 
 void main(List<String> arguments) async {
   await secureEnvKey.setFromInput();
-  stdout.writeln(await secureEnvKey.getValue());
+  // Never print the value itself
+  stdout.writeln('stored (${(await secureEnvKey.getValue()).length} chars)');
   await sharedStdIn.terminate();
 }

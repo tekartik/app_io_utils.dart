@@ -1,5 +1,5 @@
 name: tekartik_app_secure_env
-description: A sample command-line application.
+description: Values encrypted in the process_run environment (ds env) for io tools.
 version: 0.1.0
 publish_to: none
 

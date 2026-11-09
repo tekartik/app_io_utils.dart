@@ -52,17 +52,20 @@ enough.
   `.dart_tool/`). With neither, `packageName` defaults to `'.'` and every
   program shares `<userAppDataPath>/databases`.
 * A database name passed to `openDatabase` is resolved relative to that
-  databases path, so `factory.openDatabase('data.db')` is what you want;
-  `db.path` gives the resolved location. `factory.deleteDatabase(name)`
-  removes it.
+  databases path, so `factory.openDatabase('data.db')` is what you want
+  (`db.path` is that name, not the file location).
+  `factory.deleteDatabase(name)` removes it.
 * Read the factory once, keep it, and open the database once for the life of
-  the program (`getDatabaseFactory` rebuilds and re-inits a factory at every
-  call). Call `await db.close()` before exiting a CLI. Sembast/sqlite files
+  the program. Every factory returned wraps the one process-wide
+  `databaseFactoryFfi` and each call sets its databases path: a factory kept
+  from an earlier call then opens its relative names in the last path. Call `await db.close()` before exiting a CLI. Sembast/sqlite files
   are single process: do not open the same file from two programs at once.
 * `package:tekartik_app_io_sembast/setup/sembast_sqflite_ffi.dart` exposes
   `databaseFactorySqfliteFfi`, the raw `sembast_sqflite` over
-  `databaseFactoryFfi` factory, with no path handling at all. Use it only when
-  you manage the location yourself (absolute paths) or in a test.
+  `databaseFactoryFfi` factory. It is the same shared ffi factory: relative
+  names go to the path of the last `getDatabaseFactory` call
+  (`.dart_tool/sqflite_common_ffi/databases` of the current directory before
+  any). Use it with absolute paths, or in a test.
   `package:tekartik_app_io_sembast/setup/sembast_io.dart` only holds the
   deprecated `initDatabaseFactory({String? packageName})`; use
   `getDatabaseFactory` instead.
@@ -194,7 +197,8 @@ void main() {
 import 'package:tekartik_app_io_sembast/setup/sembast_sqflite_ffi.dart';
 
 Future<void> main() async {
-  // No app data handling: the name is used as is by sqflite_common_ffi
+  // No app data handling: give an absolute path, a relative name goes to
+  // the last getDatabaseFactory path (or .dart_tool/sqflite_common_ffi/databases)
   var factory = databaseFactorySqfliteFfi;
   var db = await factory.openDatabase('ffi_test.db');
 
@@ -208,8 +212,10 @@ Future<void> main() async {
 
 ## Common mistakes
 
-* Calling `getDatabaseFactory(...)` on every access: it re-inits ffi and
-  re-sets the databases path each time. Call it once and keep the factory.
+* Calling `getDatabaseFactory(...)` on every access, or with different
+  arguments: each call re-sets the databases path of the one shared ffi
+  factory, for every factory returned before. Call it once and keep the
+  factory.
 * Calling it with no argument in a real tool: the database then lands in the
   shared `<userAppDataPath>/databases`.
 * Expecting `packageName` / `rootPath` to be honoured on Android or iOS: only

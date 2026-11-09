@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:archive/archive_io.dart';
 import 'package:path/path.dart';
@@ -109,6 +110,43 @@ void main() {
           'content of a/../b.txt',
         );
         expect(File(join(dst, 'c.txt')).existsSync(), isTrue);
+      } finally {
+        await dir.delete(recursive: true);
+      }
+    });
+    test('unzip throws on a damaged archive', () async {
+      // archive >= 4.6 decodes damaged data silently unless verify is set.
+      var dir = await Directory.systemTemp.createTemp('app_zip_damaged_');
+      try {
+        var data = utf8.encode('hello world, ' * 20);
+        var archive = Archive()
+          ..addFile(ArchiveFile('a.txt', data.length, data));
+        var good = Uint8List.fromList(ZipEncoder().encode(archive));
+        // Local file header: name and extra field lengths, then the data.
+        var dataOffset =
+            30 + (good[26] | good[27] << 8) + (good[28] | good[29] << 8);
+        var damaged = Uint8List.fromList(good)..[dataOffset + 2] ^= 0xff;
+        var cases = <String, List<int>>{
+          'not_a_zip': utf8.encode('this is not a zip file'),
+          'cut': good.sublist(0, good.length ~/ 2),
+          'damaged': damaged,
+        };
+        for (var entry in cases.entries) {
+          var zipPath = join(dir.path, '${entry.key}.zip');
+          await File(zipPath).writeAsBytes(entry.value);
+          await expectLater(
+            unzip(zipPath, dst: join(dir.path, entry.key)),
+            throwsA(isA<ArchiveException>()),
+            reason: entry.key,
+          );
+        }
+        var zipPath = join(dir.path, 'good.zip');
+        await File(zipPath).writeAsBytes(good);
+        await unzip(zipPath);
+        expect(
+          await File(join(dir.path, 'good', 'a.txt')).readAsString(),
+          'hello world, ' * 20,
+        );
       } finally {
         await dir.delete(recursive: true);
       }

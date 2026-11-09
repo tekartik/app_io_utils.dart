@@ -5,13 +5,19 @@ import 'package:path/path.dart';
 import 'package:tekartik_io_utils/file_utils.dart';
 
 /// Unzip a zip file to a destination folder (default to a folder named after the zip file without the .zip extension)
+///
+/// Throws an `ArchiveException` (package:archive) when [zipFilePath] is not a
+/// zip file, is cut or holds damaged data (CRC checked), and a
+/// [FileSystemException] when an entry would be written outside the
+/// destination; in that last case nothing is written.
 Future<void> unzip(String zipFilePath, {String? dst}) async {
   dst ??= join(dirname(zipFilePath), basenameWithoutExtension(zipFilePath));
   // Read the Zip file from disk.
   List<int> bytes = await File(zipFilePath).readAsBytes();
 
-  // Decode the Zip file
-  final archive = ZipDecoder().decodeBytes(bytes);
+  // Decode the Zip file. verify: archive >= 4.6 reports no damaged data (not
+  // even a missing zip directory) without it.
+  final archive = ZipDecoder().decodeBytes(bytes, verify: true);
 
   // Check every entry before writing anything (zip slip).
   final dstPath = normalize(absolute(dst));

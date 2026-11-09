@@ -6,7 +6,9 @@ description: >-
   the two helpers zip(directoryPath, dst:) and unzip(zipFilePath, dst:) from
   package:tekartik_app_io_zip/zip.dart, their default destination rules,
   archive/ZipFileEncoder/ZipDecoder underneath, executable (unix) permission
-  restore on extract, and when to drop down to package:archive instead.
+  restore on extract, the errors of unzip (ArchiveException on a damaged or
+  non zip file, FileSystemException on an entry outside the destination),
+  and when to drop down to package:archive instead.
 ---
 
 # Zip and unzip folders on io (tekartik_app_io_zip)
@@ -26,7 +28,7 @@ directory and restores the unix executable bit.
         path: packages/app_zip
       version: '>=1.0.0'
   ```
-  It brings `archive`, `path` and `tekartik_io_utils`.
+  It brings `archive` (4.6.0 or newer), `path` and `tekartik_io_utils`.
 * Import `package:tekartik_app_io_zip/zip.dart`. It exports exactly two
   top level functions and nothing else, so `dart:io` (`File`, `Directory`) and
   `package:path/path.dart` (`join`) still need their own imports:
@@ -51,6 +53,12 @@ directory and restores the unix executable bit.
   guaranteed: `ZipFileEncoder` does not always record permissions, so do not
   rely on `zip` + `unzip` to round trip a `+x` flag; re-apply it after
   extraction if it matters.
+* `unzip` fails before writing a bad entry: a file that is not a zip, a cut
+  archive or damaged data (CRC mismatch) throws an `ArchiveException`
+  (`package:archive`, the entries extracted before a damaged one stay on
+  disk); an entry that would land outside `dst` (`../x`, an absolute name)
+  throws a `FileSystemException` and nothing is written. A symbolic link
+  entry is written as a regular file holding the link target.
 * Both functions are `Future<void>`: `await` them. `unzip` reads the whole
   archive into memory (`File.readAsBytes` then `ZipDecoder`), so avoid it for
   very large archives and use `package:archive` streaming APIs
@@ -174,4 +182,6 @@ void main() {
   (instead of a `.zip` file) to `unzip`.
 * Relying on the executable bit surviving `zip` then `unzip`.
 * Unzipping a huge archive with this helper: it is fully loaded in memory.
+* Catching only `FileSystemException` around `unzip`: a damaged archive
+  throws an `ArchiveException`.
 * Forgetting `await`: both helpers return a `Future` and do real file i/o.

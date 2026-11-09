@@ -45,6 +45,13 @@ environment.
   that reads it. The password lives in your source: it hides the value from
   a casual look at env files, it does not protect against someone holding
   both the file and the code.
+* Weak by design: the value goes through `encrypt` of tekartik_app_crypto,
+  AES-CTR with a fixed zero IV and no MAC. All the values of one password
+  share one key stream (a known value reveals the start of the others) and a
+  modified value is not detected. Use your own password (never the one of an
+  example), one per secret, and keep real credentials in a real secret
+  store. `setValue` prints the `ds` command with the encrypted value: avoid it
+  in CI logs. Never print the decrypted value.
 * Write: `await key.setValue(value)` encrypts (`encrypt(value, password)`,
   base64 output) and runs `ds env var set <key> <encrypted>` in a
   `Shell()`. By default `ds env var set` writes the **local** process_run
@@ -59,8 +66,9 @@ environment.
   program will not exit.
 * Read: `await key.getValue()` takes `ShellEnvironment().vars[key]` (the
   platform environment merged with the user and local env files) and
-  decrypts it; it throws when the variable is missing (null check) or when
-  the password does not match. `await key.getValueOrNull()` returns null in
+  decrypts it; it throws when the variable is missing (null check) or, in
+  most cases, when the password does not match (nothing checks the value, a
+  wrong password can also give garbage). `await key.getValueOrNull()` returns null in
   both cases (decryption errors are written on stderr). Both are async
   although they do no io.
 * Because the platform environment is included, a CI job can provide the
@@ -83,7 +91,7 @@ import 'package:tekartik_app_secure_env/secure_env.dart';
 /// Shared definition: the env var name and the 32 char AES password.
 final apiKey = SecureEnvKey(
   key: 'MY_TOOL_API_KEY',
-  password: 'x9cQYGAw8YVnhJyNmjc6cmq29XGnZgvD',
+  password: 'replace-with-your-own-32-chars!!',
 );
 
 /// dart run tool/api_key.dart set   (prompts, writes .local/ds_env.yaml)
@@ -111,7 +119,7 @@ import 'package:tekartik_app_secure_env/secure_env.dart';
 
 final dbPassword = SecureEnvKey(
   key: 'MY_TOOL_DB_PASSWORD',
-  password: '0123456789abcdef', // 16 chars
+  password: 'replace-16-chars', // 16 chars
 );
 
 /// dart run tool/db_password_set.dart <password>
@@ -134,7 +142,7 @@ import 'package:tekartik_app_secure_env/secure_env.dart';
 
 final apiKey = SecureEnvKey(
   key: 'MY_TOOL_API_KEY',
-  password: 'x9cQYGAw8YVnhJyNmjc6cmq29XGnZgvD',
+  password: 'replace-with-your-own-32-chars!!',
 );
 
 Future<String> requireApiKey() async {
@@ -162,7 +170,7 @@ import 'package:tekartik_app_secure_env/secure_env.dart';
 
 final apiKey = SecureEnvKey(
   key: 'MY_TOOL_API_KEY',
-  password: 'x9cQYGAw8YVnhJyNmjc6cmq29XGnZgvD',
+  password: 'replace-with-your-own-32-chars!!',
 );
 
 /// dart run tool/api_key_encrypt.dart <value>

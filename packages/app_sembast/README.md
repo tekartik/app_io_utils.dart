@@ -1,21 +1,19 @@
 # tekartik_app_io_sembast
 
-This package allow a simplified sembast initialization to support multiple platforms (flutter mobile/desktop and web).
-The abstraction is done at the database factory used within an application.
+A [sembast](https://pub.dev/packages/sembast) `DatabaseFactory` for `dart:io`
+programs (command line tools, servers, desktop tools, tests): sembast stored
+in SQLite through [sembast_sqflite](https://pub.dev/packages/sembast_sqflite)
+and [sqflite_common_ffi](https://pub.dev/packages/sqflite_common_ffi), with
+the database files in the user application data folder. The library
+re-exports the sembast API.
 
-Sembast database factory for flutter app (mobile & web).
+A Flutter application (mobile, desktop or web) uses
+[tekartik_app_flutter_sembast](https://github.com/tekartik/app_flutter_utils.dart/tree/master/app_sembast)
+instead.
 
-* On Flutter iOS/Android/MacOS, [sembast_sqflite](https://pub.dev/packages/sembast_sqflite) will be used based on 
-  [sqflite](https://pub.dev/packages/sqflite)
-* On Flutter Desktop Windows/Linux/(optional MacOS), [sembast_sqflite](https://pub.dev/packages/sembast_sqflite) will be used 
-  based on [sqflite_commmon_ffi](https://pub.dev/packages/sqflite_common_ffi)
-* On Flutter Web, [sembast_web](https://pub.dev/packages/sembast_web) will be used based on
-  IndexedDB
-* In unit test, `databaseFactoryMemory` should be used from [sembast](https://pub.dev/packages/sembast)
+## Getting started
 
-## Getting Started
-
-### Setup
+The package is not on pub.dev, add it as a git dependency:
 
 ```yaml
 dependencies:
@@ -23,51 +21,52 @@ dependencies:
     git:
       url: https://github.com/tekartik/app_io_utils.dart
       path: packages/app_sembast
-    version: '>=0.1.0'
+    version: '>=0.5.0'
 ```
 
-### Usage
-
-Simplified usage: 
-* Open your database only once in your application 
-* Keep it open
-
 ```dart
-import 'package:tekartik_app_io_idb/app_sembast.dart';
-Future main() {
-  // Get the sembast database factory according to the current platform
-  // * sembast_web for FlutterWeb and Web
-  // * sembast_sqflite and sqflite on Flutter iOS/Android/MacOS
-  // * sembast_sqflite and sqflite3 ffi on Flutter Windows/Linux and dart VM (might require extra initialization steps)
-  var factory = getDatabaseFactory();
+import 'package:tekartik_app_io_sembast/sembast.dart';
+
+Future<void> main() async {
+  // Databases in <userAppDataPath>/com.example.my_tool/databases
+  // (~/.config/... on Linux and macOS, %APPDATA% on Windows).
+  var factory = getDatabaseFactory(packageName: 'com.example.my_tool');
+  var db = await factory.openDatabase('data.db');
+
   var store = StoreRef<String, String>.main();
-  // Open the database
-  var db = await factory.openDatabase('test.db');
-  await store.record('key').put(db, 'value');
-  
-  // Not needed in a flutter application
+  await store.record('last_run').put(db, DateTime.now().toIso8601String());
+  print(await store.record('last_run').get(db));
+
   await db.close();
 }
 ```
 
-### Usage in unit test
+`getDatabaseFactory(rootPath: '.dart_tool/my_tool/db')` puts the databases in
+a folder of your choice instead. In unit tests use `databaseFactoryMemory`
+(nothing written on disk).
 
-```dart
-import 'package:test/test.dart';
-import 'package:tekartik_app_io_sembast/sembast.dart';
+## Platforms
 
-void main() {
-  test('open/close', () async {
-    /// Using in memory implementation for unit test
-    var factory = databaseFactoryMemory;
-    var db = await factory.openDatabase('test.db');
-    // ...
-    await db.close();
-  });
-}
-```
+| Platform | Factory |
+|---|---|
+| Linux, macOS, Windows (Dart VM) | sembast_sqflite on sqflite_common_ffi, path from `packageName` or `rootPath` |
+| Android, iOS (`dart:io`) | same ffi factory, `packageName` and `rootPath` ignored: use the Flutter package |
+| Web | not supported, `getDatabaseFactory` throws `UnimplementedError` |
 
-# Sample usage
+SQLite comes with `package:sqlite3` (build hooks), nothing to install.
 
-* [Flutter counter template with added persistency](https://github.com/alextekartik/io_app_example/tree/master/demosembast) available, [online demo](https://alextekartik.github.io/io_app_example/demosembast)
-* Basic [notepad using sembast](https://github.com/alextekartik/io_app_example/tree/master/notepad_sembast) available, [online demo](https://alextekartik.github.io/io_app_example/notepad_sembast/)
+## Common pitfalls
+
+* Call `getDatabaseFactory` once and keep the factory. Every factory it
+  returns uses the same process-wide `databaseFactoryFfi`: each call moves the
+  folder of all of them, and a factory kept from an earlier call then opens
+  its relative names in the last folder.
+* Without `packageName` nor `rootPath`, every such program shares
+  `<userAppDataPath>/databases`.
+* `databaseFactorySqfliteFfi` (`setup/sembast_sqflite_ffi.dart`) is that same
+  shared ffi factory: its relative names follow the last `getDatabaseFactory`
+  call (`.dart_tool/sqflite_common_ffi/databases` before any call).
+* A sembast database file is used by one process at a time.
+
+The [package skill](skills/tekartik-app-io-sembast-setup/SKILL.md) has more
+examples (typed store, service with an injected factory, unit test).
