@@ -4,13 +4,16 @@ import 'package:tekartik_app_args/app_args.dart';
 import 'argument.dart';
 
 extension TerkartikArgParserExt on args.ArgParser {
+  /// Adds [argument] with its default value ([Argument.defaultsTo]), never
+  /// the value a previous parse gave it.
   void addArgument(Argument argument) {
     if (argument is Flag) {
       addFlag(
         argument.name,
         abbr: argument.abbr,
         help: argument.help,
-        defaultsTo: argument.value,
+        // Not null, the parsed value is cast to bool.
+        defaultsTo: argument.defaultsTo ?? false,
         negatable: argument.negatable,
         hide: argument.hide,
       );
@@ -19,7 +22,7 @@ extension TerkartikArgParserExt on args.ArgParser {
         argument.name,
         abbr: argument.abbr,
         help: argument.help,
-        defaultsTo: argument.value,
+        defaultsTo: argument.defaultsTo,
         hide: argument.hide,
       );
     } else if (argument is MultiOption) {
@@ -27,7 +30,7 @@ extension TerkartikArgParserExt on args.ArgParser {
         argument.name,
         abbr: argument.abbr,
         help: argument.help,
-        defaultsTo: argument.value,
+        defaultsTo: argument.defaultsTo,
         hide: argument.hide,
       );
     } else {

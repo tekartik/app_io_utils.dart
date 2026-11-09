@@ -21,6 +21,29 @@ void main() {
       expect(helpFlag.on, isFalse);
       expect(helpFlag.value, isFalse);
     });
+    test('arguments reused by another parser', () {
+      // A first command parses --help with the shared flagHelp.
+      ArgumentParser()
+        ..addArgument(flagHelp)
+        ..parse(['--help']);
+      expect(flagHelp.on, isTrue);
+      // Another command using it: still off by default.
+      var parser = ArgumentParser()..addArgument(flagHelp);
+      expect(parser.raw.usage, isNot(contains('defaults to on')));
+      parser.parse([]);
+      expect(flagHelp.on, isFalse);
+
+      var option = Option.arg('option', defaultsTo: 'default');
+      var multiOption = MultiOption.arg('multi');
+      ArgumentParser()
+        ..addArguments([option, multiOption])
+        ..parse(['--option', 'first', '--multi', 'first']);
+      ArgumentParser()
+        ..addArguments([option, multiOption])
+        ..parse([]);
+      expect(option.value, 'default');
+      expect(multiOption.value, isEmpty);
+    });
     test('parse option', () {
       var testOption = Option.arg('option', abbr: 'o');
       var argParser = ArgumentParser();
