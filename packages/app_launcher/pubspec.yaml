@@ -8,7 +8,7 @@ environment:
 
 dependencies:
   path: ">=1.9.1"
-  process_run: ">=1.2.1+1"
+  process_run: ">=1.4.4"
   tekartik_common_utils:
     git: https://github.com/tekartik/common_utils.dart
 

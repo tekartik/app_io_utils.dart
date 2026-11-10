@@ -16,6 +16,7 @@ dependencies:
 
 dev_dependencies:
   lints: ">=6.1.0"
+  process_run: ">=1.4.3"
   test: ">=1.31.0"
   tekartik_lints:
     git:

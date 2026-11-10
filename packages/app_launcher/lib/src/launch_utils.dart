@@ -36,12 +36,13 @@ Future<bool> startDetached(
     );
   }
   try {
-    await Process.start(
-      executable,
-      arguments,
-      workingDirectory: workingDirectory,
-      mode: ProcessStartMode.detached,
-    );
+    await Shell(
+      options: ShellOptions(
+        workingDirectory: workingDirectory,
+        mode: ProcessStartMode.detached,
+        verbose: false,
+      ),
+    ).runExecutableArguments(executable, arguments);
     return true;
   } catch (e) {
     if (verbose) {

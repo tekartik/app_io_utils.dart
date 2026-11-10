@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:archive/archive_io.dart';
 import 'package:path/path.dart';
+import 'package:process_run/shell.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -19,7 +20,9 @@ void main() {
       // Create an executable file and zip it
       var file = File(join(srcPath, 'test.bin'));
       await file.writeAsString('bin', flush: true);
-      await Process.run('chmod', ['+x', file.path]);
+      await Shell(
+        verbose: false,
+      ).runExecutableArguments('chmod', ['+x', file.path]);
       // Check permission
       // permission executable b001001001 = 0x49
       expect((file.statSync()).mode & 0x49, 0x49);
