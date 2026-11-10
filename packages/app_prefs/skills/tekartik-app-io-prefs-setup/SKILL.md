@@ -42,8 +42,10 @@ application data directory, and re-exports the whole `tekartik_prefs` API
     on the other io platforms `packageName` is ignored and the default
     factory is returned.
   - `prefsFactory`: the default factory, same storage under the package
-    name `com.tekartik.app_prefs`. Reading the getter builds a new factory
-    every time: read it once and keep the instance.
+    name `com.tekartik.app_prefs` (the same instance as
+    `getPrefsFactory()`). Every factory is cached: reading the getter again
+    returns the same instance, so two `openPreferences` of the same name
+    share one `Prefs`.
   `userAppDataPath` (process_run) is `~/.config` on Linux and macOS,
   `%APPDATA%` on Windows; each prefs name is one sembast database file
   (`.../prefs/<name>`). Always pass a reverse-dns `packageName` in a real
@@ -191,8 +193,8 @@ void main() {
 
 ## Common mistakes
 
-* Reading `prefsFactory` repeatedly (a new factory each time) instead of
-  keeping one `getPrefsFactory(packageName:)` result.
+* Using the default `prefsFactory` (shared `com.tekartik.app_prefs` folder)
+  in a real tool instead of `getPrefsFactory(packageName:)`.
 * Exiting a CLI right after a `setXxx` without `await prefs.save()` (or
   `close()`): the microtask flush may not have run.
 * Expecting `getPrefsFactory(packageName:)` to isolate data on macOS,
