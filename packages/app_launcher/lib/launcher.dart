@@ -8,6 +8,7 @@ library;
 
 export 'src/platform.dart'
     show
+        findChromeExecutable,
         launchChrome,
         launchFileExplorer,
         launchTextEdit,

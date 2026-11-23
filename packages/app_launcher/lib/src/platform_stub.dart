@@ -51,3 +51,11 @@ Future<bool> launchTerminal({
 T _stub<T>(String message) {
   throw UnimplementedError(message);
 }
+
+/// Only for io
+String findChromeExecutable({
+  String? operatingSystem,
+  Map<String, String>? environment,
+  String? Function(String command)? which,
+  bool Function(String path)? exists,
+}) => throw UnsupportedError('findChromeExecutable only for io');

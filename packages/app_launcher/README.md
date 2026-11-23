@@ -47,6 +47,7 @@ imports everywhere) they throw `UnimplementedError`.
 | `launchBrowser(uri)`, `launchDefaultViewer(uri)` | the default app for the uri | `xdg-open`, `open`, `explorer`; Chrome as the fallback |
 | `launchDefaultViewerPath(path)`, `launchImageViewer(path)` | a file in its default app | same, after converting the path to a `file:` uri |
 | `launchChrome(uri)`, `launchFirefox(uri)` | that browser | `google-chrome`/`firefox`, `open -a`, `start` |
+| `findChromeExecutable()` | nothing: the path of Chrome, to start it with options (headless, a DevTools port) | `CHROME_EXECUTABLE`, Chrome or Chromium on the path, the macOS app, `Google\Chrome\Application\chrome.exe` under `ProgramFiles`, `ProgramFiles(x86)`, `LOCALAPPDATA`; a `StateError` when none |
 | `launchTextEdit(path)` | a text editor (creates the file unless `doNotCreate: true`) | `gedit` (Linux), `notepad`, `open -a TextEdit`; `false` when none |
 | `launchFileExplorer(path)` | the file manager on a folder or file | `xdg-open` or a known file manager, `open`, `explorer` |
 | `launchTerminal(options:)` | a new terminal window in a directory | `xdg-terminal-exec`, `x-terminal-emulator`, gnome-terminal..., Terminal.app, `wt`/`cmd` |

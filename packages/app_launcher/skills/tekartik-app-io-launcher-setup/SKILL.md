@@ -51,6 +51,10 @@ Linux, macOS and Windows.
   - `launchChrome(uri)`: `google-chrome`, `open -a "Google Chrome"`,
     `start chrome`.
   - `launchFirefox(uri)`: `firefox`, `open -a Firefox`, `start firefox`.
+  - `findChromeExecutable()`: the path of Chrome to drive it (headless, a
+    DevTools port; tekartik_common_build re-exports it): `CHROME_EXECUTABLE`,
+    Chrome or Chromium on the path, the macOS app, the Windows install
+    folders; a `StateError` when none.
 * Files, in their default application:
   - `launchDefaultViewer(uri)`: `xdg-open` / `open` / `explorer`, chrome
     as a fallback. `launchDefaultViewerPath(path)` first converts a path to

@@ -1,3 +1,4 @@
+export 'find_chrome.dart' show findChromeExecutable;
 export 'launch_browser.dart' show launchBrowser;
 export 'launch_chrome.dart' show launchChrome;
 export 'launch_default_viewer.dart'
